@@ -1,25 +1,21 @@
-import { Routes, Route } from 'react-router-dom'
-import Home from './pages/Home';
-import Register from './pages/Register';
-import Login from './pages/Login';
-import Posts from './pages/Posts'
-import NavBar from './components/Navigation/Navigation'
-import './App.css';
+import { Routes, Route } from "react-router-dom";
+import HomePage from "./pages/Home/HomePage";
+import RegisterPage from "./pages/Register/RegisterPage";
+import LoginPage from "./pages/Login/LoginPage";
+import PostsPage from "./pages/Posts/PostsPage";
+import "./App.css";
 
 function App() {
-    return (
-        <>
-            <header>
-                <NavBar/>
-            </header>
-            <Routes>
-                <Route path='/' element={<Home />}></Route>
-                <Route path='/posts' element={<Posts />}></Route>
-                <Route path='/register' element={<Register />}></Route>
-                <Route path='/login' element={<Login />}></Route>
-            </Routes>
-        </>
-    );
+  return (
+    <>
+      <Routes>
+        <Route path='/' element={<HomePage />}></Route>
+        <Route path='/posts' element={<PostsPage />}></Route>
+        <Route path='/register' element={<RegisterPage />}></Route>
+        <Route path='/login' element={<LoginPage />}></Route>
+      </Routes>
+    </>
+  );
 }
 
 export default App;
