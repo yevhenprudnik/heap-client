@@ -4,14 +4,14 @@ import './Navigation.css';
 
 export default function NavBar() {
     return (
-        <div className = 'buttons'>
+        <div className = 'navigationBar'>
             <div>
-                <Link to = "/" className = 'homeLink'>Home</Link>
-                <Link to = "/posts" className = 'postsLink'>Posts</Link>
+                <Link to = "/" className = 'navBarMainLinks'>Home</Link>
+                <Link to = "/posts" className = 'navBarMainLinks'>Posts</Link>
             </div>
-            <div className='logRegButtons'>
-                <Link to = "/login" className = 'loginLink'>Login</Link>   
-                <Link to = "/register" className = 'registerLink'>Register</Link>
+            <div>
+                <Link to = "/login" className = 'navBarAuthLinks'>Login</Link>   
+                <Link to = "/register" className = 'navBarAuthLinks'>Register</Link>
             </div>
         </div>
     );
