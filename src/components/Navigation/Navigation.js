@@ -8,7 +8,7 @@ export const nawBarAuthLinkStyle =
 
 export default function NavBar() {
   return (
-    <div className="flex fontMontserrat rowDirection pa3 justify-between items-center">
+    <div className="flex fontMontserrat rowDirection pa3 justify-between items-center bb">
       <div>
         <Link to="/" className={nawBarMainLinkStyle}>
           Home

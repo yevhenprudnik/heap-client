@@ -14,11 +14,14 @@ export default function Login() {
       <div>
         <input type="password" className="input" />
       </div>
-      <div className="flex-ns justify-between pt4">
-        <Link to="/" className="no-underline black">
-          <div className={buttonStyle}>Home</div>
+      <div className="pt3 tc w-80 center">
+        <div className={`no-underline ${buttonStyle}`}>Login</div>
+      </div>
+      <div className="flex pt4">
+        <div className="pa2">Don't have an account?</div>
+        <Link to="/register" className="no-underline black dib v-mid">
+          <div className={buttonStyle}>Register</div>
         </Link>
-        <div className={`no-underline ${buttonStyle}`}>Enter</div>
       </div>
     </div>
   );
