@@ -1,18 +1,30 @@
-import { Link } from 'react-router-dom'
-import './Navigation.css';
+import { Link } from 'react-router-dom';
 
+export const nawBarMainLinkStyle =
+  'f2 black no-underline bg-animate hover-bg-light-gray pa2 br3';
+
+export const nawBarAuthLinkStyle =
+  'f4 black no-underline bg-animate hover-bg-light-gray pa2 br3';
 
 export default function NavBar() {
-    return (
-        <div className = 'navigationBar'>
-            <div>
-                <Link to = "/" className = 'navBarMainLinks'>Home</Link>
-                <Link to = "/posts" className = 'navBarMainLinks'>Posts</Link>
-            </div>
-            <div>
-                <Link to = "/login" className = 'navBarAuthLinks'>Login</Link>   
-                <Link to = "/register" className = 'navBarAuthLinks'>Register</Link>
-            </div>
-        </div>
-    );
+  return (
+    <div className="flex fontMontserrat rowDirection pa3 justify-between items-center">
+      <div>
+        <Link to="/" className={nawBarMainLinkStyle}>
+          Home
+        </Link>
+        <Link to="/posts" className={nawBarMainLinkStyle}>
+          Posts
+        </Link>
+      </div>
+      <div>
+        <Link to="/login" className={nawBarAuthLinkStyle}>
+          Login
+        </Link>
+        <Link to="/register" className={nawBarAuthLinkStyle}>
+          Register
+        </Link>
+      </div>
+    </div>
+  );
 }
