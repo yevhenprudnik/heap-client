@@ -5,10 +5,11 @@ import HomePage from './pages/Home/HomePage';
 import RegisterPage from './pages/Auth/Register/RegisterPage';
 import LoginPage from './pages/Auth/Login/LoginPage';
 import PostsPage from './pages/Posts/PostsPage';
+import ProfilePage from './pages/Profile/ProfilePage';
 import './App.css';
 
 function App() {
-  const [user, setUser] = useState({});
+  const [isAuthorized, setIsAuthorized] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -21,21 +22,22 @@ function App() {
           authorization: `Bearer ${accessToken}`,
         },
       });
-      const data = await response.json();
-      if (!!data.id) {
-        setUser(data);
+
+      if (response.ok) {
+        setIsAuthorized(true);
       }
     })();
   }, []);
-  
+
   return (
     <>
-      <NavBar />
+      <NavBar isAuthorized={isAuthorized} />
       <Routes>
-        <Route path="/" element={<HomePage />}></Route>
-        <Route path="/posts" element={<PostsPage />}></Route>
-        <Route path="/register" element={<RegisterPage />}></Route>
-        <Route path="/login" element={<LoginPage />}></Route>
+        <Route path='/' element={<HomePage />}></Route>
+        <Route path='/posts' element={<PostsPage />}></Route>
+        <Route path='/register' element={<RegisterPage />}></Route>
+        <Route path='/login' element={<LoginPage />}></Route>
+        <Route path='/profile' element={<ProfilePage />}></Route>
       </Routes>
     </>
   );
