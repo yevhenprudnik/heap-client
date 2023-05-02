@@ -12,7 +12,7 @@ function App() {
   const [isAuthorized, setIsAuthorized] = useState(false);
 
   useEffect(() => {
-    (async () => {
+    const loadUser = async () => {
       const accessToken = localStorage.getItem('accessToken');
       if (!accessToken) {
         return;
@@ -26,7 +26,9 @@ function App() {
       if (response.ok) {
         setIsAuthorized(true);
       }
-    })();
+    };
+    
+    loadUser();
   }, []);
 
   return (
