@@ -1,8 +1,45 @@
 import { Link } from 'react-router-dom';
 import '../Auth.css';
 import { buttonStyle } from '../styles';
+import { useState } from 'react';
 
-export default function Login() {
+export default function Register() {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [registerError, setRegisterError] = useState('');
+
+  const handleRegister = async () => {
+    if (password !== confirmPassword) {
+      alert('не підходять сука паролі');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:3000/auth/sign-up', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, email, password }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+
+        throw new Error(error.message);
+      }
+
+      const data = await response.json();
+
+      localStorage.setItem('accessToken', data.accessToken);
+
+      window.location.replace('/');
+    } catch (e) {
+      setRegisterError(e.message);
+    }
+  };
   return (
     <div className="fontMontserrat shadow-5 pa5 br3">
       <div className="f1 b tc">Register</div>
@@ -22,8 +59,13 @@ export default function Login() {
       <div>
         <input type="password" className="input" />
       </div>
-      <div className="pt3 tc w-80 center">
-        <div className={`no-underline ${buttonStyle}`}>Register</div>
+      <div className='mt4 tc w-80 center'>
+        <div className='mb4 red w5'>
+          {!!registerError.length && registerError}
+        </div>
+        <div className={`no-underline ${buttonStyle}`} onClick={handleRegister}>
+          Register
+        </div>
       </div>
       <div className="flex pt4">
         <div className="pa2">Already have an account?</div>

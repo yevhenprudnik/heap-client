@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import NavBar from './components/Navigation/Navigation';
 import HomePage from './pages/Home/HomePage';
 import RegisterPage from './pages/Auth/Register/RegisterPage';
@@ -7,6 +8,26 @@ import PostsPage from './pages/Posts/PostsPage';
 import './App.css';
 
 function App() {
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    (async () => {
+      const accessToken = localStorage.getItem('accessToken');
+      if (!accessToken) {
+        return;
+      }
+      const response = await fetch('http://localhost:3000/auth', {
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+        },
+      });
+      const data = await response.json();
+      if (!!data.id) {
+        setUser(data);
+      }
+    })();
+  }, []);
+  
   return (
     <>
       <NavBar />

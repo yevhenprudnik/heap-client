@@ -8,22 +8,41 @@ export const nawBarAuthLinkStyle =
 
 export default function NavBar() {
   return (
-    <div className="flex fontMontserrat rowDirection pa3 justify-between items-center bb">
+    <div className='flex fontMontserrat rowDirection pa3 justify-between items-center bb'>
       <div>
-        <Link to="/" className={nawBarMainLinkStyle}>
+        <Link to='/' className={nawBarMainLinkStyle}>
           Home
         </Link>
-        <Link to="/posts" className={nawBarMainLinkStyle}>
+        <Link to='/posts' className={nawBarMainLinkStyle}>
           Posts
         </Link>
       </div>
       <div>
-        <Link to="/login" className={nawBarAuthLinkStyle}>
-          Login
-        </Link>
-        <Link to="/register" className={nawBarAuthLinkStyle}>
-          Register
-        </Link>
+        {isAuthorized ? (
+          <div>
+            <Link to='/profile' className={nawBarAuthLinkStyle}>
+              Profile
+            </Link>
+            <button
+              className={nawBarAuthLinkStyle}
+              onClick={() => {
+                localStorage.removeItem('accessToken');
+                window.location.reload();
+              }}
+            >
+              SignOut
+            </button>
+          </div>
+        ) : (
+          <div>
+            <Link to='/login' className={nawBarAuthLinkStyle}>
+              Login
+            </Link>
+            <Link to='/register' className={nawBarAuthLinkStyle}>
+              Register
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
