@@ -1,11 +1,12 @@
-import { Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import NavBar from './components/Navigation/Navigation';
 import HomePage from './pages/Home/HomePage';
 import RegisterPage from './pages/Auth/Register/RegisterPage';
 import LoginPage from './pages/Auth/Login/LoginPage';
 import PostsPage from './pages/Posts/PostsPage';
 import ProfilePage from './pages/Profile/ProfilePage';
+import { api } from './api/api';
 import './App.css';
 
 function App() {
@@ -13,21 +14,17 @@ function App() {
 
   useEffect(() => {
     const loadUser = async () => {
-      const accessToken = localStorage.getItem('accessToken');
-      if (!accessToken) {
-        return;
-      }
-      const response = await fetch('http://localhost:3000/auth', {
-        headers: {
-          authorization: `Bearer ${accessToken}`,
-        },
-      });
+      try {
+        const response = await api.get('auth');
 
-      if (response.ok) {
-        setIsAuthorized(true);
+        if (response.statusText === 'OK') {
+          setIsAuthorized(true);
+        }
+      } catch {
+        setIsAuthorized(false);
       }
     };
-    
+
     loadUser();
   }, []);
 

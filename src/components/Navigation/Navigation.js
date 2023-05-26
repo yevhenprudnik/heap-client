@@ -27,6 +27,8 @@ export default function NavBar({ isAuthorized }) {
               className={nawBarAuthLinkStyle}
               onClick={() => {
                 localStorage.removeItem('accessToken');
+                localStorage.removeItem('refreshToken');
+
                 window.location.reload();
               }}
             >

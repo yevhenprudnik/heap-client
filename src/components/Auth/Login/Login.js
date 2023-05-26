@@ -1,7 +1,8 @@
+import { api } from '../../../api/api';
 import { Link } from 'react-router-dom';
-import '../Auth.css';
 import { buttonStyle } from '../styles';
 import { useState } from 'react';
+import '../Auth.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -10,27 +11,19 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://localhost:3000/auth/sign-in', {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await api.post(
+        'auth/sign-in',
+        { email, password }
+      );
 
-      if (!response.ok) {
-        const error = await response.json();
-
-        throw new Error(error.message);
-      }
-
-      const data = await response.json();
+      const data = response.data;
 
       localStorage.setItem('accessToken', data.accessToken);
+      localStorage.setItem('refreshToken', data.refreshToken);
 
       window.location.replace('/');
     } catch (e) {
-      setLoginError(e.message);
+      setLoginError(e.response.data.message);
     }
   };
 
