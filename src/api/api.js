@@ -1,40 +1,52 @@
 import axios from 'axios';
 
+const baseURL = 'http://localhost:9000/';
+
 export const api = axios.create({
-  baseURL: 'http://localhost:9000/',
+  baseURL,
   headers: {
-    authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    authorization: `Bearer ${localStorage.getItem(
+      'accessToken'
+    )} ${localStorage.getItem('refreshToken')}`,
     'Content-Type': 'application/json',
   },
 });
 
 api.interceptors.response.use(
-  (response) => {
+  response => {
     return response;
   },
-  async (error) => {
+  async error => {
     const originalRequest = error.config;
 
-    const response = await axios.get(
-      'http://localhost:9000/auth/refresh',
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem(
-            'accessToken'
-          )} ${localStorage.getItem('refreshToken')}`,
-        },
+    console.log('Using interceptor');
+
+    await refreshSession(originalRequest);
+
+    return api.request(originalRequest);
+  }
+);
+
+async function refreshSession(originalRequest) {
+  try {
+    const response = await axios.get(`${baseURL}auth/refresh`, {
+      headers: {
+        Authorization: `Bearer accessToken ${localStorage.getItem(
+          'refreshToken'
+        )}`,
       },
-      { withCredentials: true }
-    );
-    console.log('Using interceptor', response.data);
+    });
+
+    console.log(`Success refresh session: ${response.statusText === 'OK'}`);
 
     const { accessToken, refreshToken } = response.data;
 
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('refreshToken', refreshToken);
 
-    originalRequest.headers.Authorization = `Bearer ${response.data.accessToken} ${response.data.refreshToken}`;
-
-    return api.request(originalRequest);
+    originalRequest.headers.authorization = `Bearer ${response.data.accessToken} ${response.data.refreshToken}`;
+  } catch (error) {
+    console.log('Failed to refresh session');
+    throw error;
   }
-);
+}
