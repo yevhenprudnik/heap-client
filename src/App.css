@@ -33,3 +33,11 @@ header {
 .fontMontserrat {
   font-family: 'Montserrat', sans-serif;
 }
+
+.w50 {
+  width: 50vw;
+}
+
+.w50p {
+  width: 50%;
+}
