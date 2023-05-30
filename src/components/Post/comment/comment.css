@@ -1,0 +1,9 @@
+.replies-list {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease;
+  }
+  
+  .replies-list.open {
+    height: auto ;
+  }

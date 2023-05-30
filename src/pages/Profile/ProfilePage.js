@@ -72,16 +72,173 @@ const userExample = {
   desription: 'Some text no more than 2000 characters...',
 };
 
+const comments = [
+  {
+    id: 0,
+    content: 'This comment to post with id 2!',
+    postId: 2,
+    commentId: 0,
+    author: {
+      id: 0,
+      username: 'Ganjubas',
+    },
+    replies: [
+      {
+        id: 0,
+        content: 'string',
+        postId: 0,
+        commentId: 0,
+        author: {
+          id: 0,
+          username: 'string',
+        },
+      },
+    ],
+  },
+  {
+    id: 1,
+    content: 'This comment to post with id 2!',
+    postId: 2,
+    commentId: 0,
+    author: {
+      id: 0,
+      username: 'Ganjubas',
+    },
+    replies: [
+      {
+        id: 0,
+        content: 'string',
+        postId: 0,
+        commentId: 0,
+        author: {
+          id: 0,
+          username: 'string',
+        },
+      },
+    ],
+  },
+  {
+    id: 2,
+    content: 'This comment to post with id 2!',
+    postId: 2,
+    commentId: 0,
+    author: {
+      id: 2,
+      username: 'Ganjubas',
+    },
+    replies: [
+      {
+        id: 0,
+        content: 'string',
+        postId: 0,
+        commentId: 0,
+        author: {
+          id: 0,
+          username: 'string',
+        },
+      },
+    ],
+  },
+  {
+    id: 3,
+    content: 'This comment to post with id 3!',
+    postId: 3,
+    commentId: 0,
+    author: {
+      id: 2,
+      username: 'Ganjubas',
+    },
+    replies: [
+      {
+        id: 0,
+        content: 'string',
+        postId: 0,
+        commentId: 0,
+        author: {
+          id: 0,
+          username: 'string',
+        },
+      },
+    ],
+  },
+  {
+    id: 4,
+    content: 'This comment to post with id 2!',
+    postId: 2,
+    commentId: 0,
+    author: {
+      id: 2,
+      username: 'Ganjubas',
+    },
+    replies: [
+      {
+        id: 0,
+        content: 'string',
+        postId: 0,
+        commentId: 0,
+        author: {
+          id: 0,
+          username: 'string',
+        },
+      },
+    ],
+  },
+  {
+    id: 5,
+    content: 'This comment to post with id 2!',
+    postId: 2,
+    commentId: 0,
+    author: {
+      id: 0,
+      username: 'Ganjubas',
+    },
+    replies: [
+      {
+        id: 0,
+        content: 'string',
+        postId: 0,
+        commentId: 0,
+        author: {
+          id: 0,
+          username: 'string',
+        },
+      },
+    ],
+  },
+  {
+    id: 6,
+    content: 'This comment to post with id 2!',
+    postId: 2,
+    commentId: 0,
+    author: {
+      id: 0,
+      username: 'Ganjubas',
+    },
+    replies: [
+      {
+        id: 0,
+        content: 'string',
+        postId: 0,
+        commentId: 0,
+        author: {
+          id: 0,
+          username: 'string',
+        },
+      },
+    ],
+  },
+];
+
 export default function ProfilePage() {
   return (
     <div className='flex-column justify-center mt3'>
       <Profile userExample={userExample} />
-      <div
-        className='flex-col items-center w-50 center pa4 bg-light-gray'
-      >
+      <div className='flex-col items-center w-50 center pa4 bg-light-gray'>
         {posts.map((post, index) => (
           <div key={index} className='w-full max-w-md pb2 pt2'>
-            {userExample.id === post.author.id && <Post post={post} />}
+            {userExample.id === post.author.id && (
+              <Post user={userExample} post={post} comments={comments} />
+            )}
           </div>
         ))}
       </div>

@@ -1,7 +1,13 @@
+import { useState } from 'react';
+import NewPostModal from './newPostModal/newPostModal';
+import ProfileSettingsModal from './profileSettingsModal/profileSettingsModal';
 import '../../App.css';
 import './Profile.css';
 
-export default function Profile({userExample}) {
+export default function Profile({ userExample }) {
+  const [newPostIsActive, setNewPostIsActive] = useState(false);
+  const [profileSettingsIsActive, setProfileSettingsIsActive] = useState(false);
+
   return (
     <div className='flex-ns flex-column items-center'>
       <div className='flex-ns flex-column items-center w-50 bg-light-gray'>
@@ -23,9 +29,23 @@ export default function Profile({userExample}) {
         </div>
       </div>
       <div className='flex-ns justify-around w-50 mv3 pv3 bg-light-gray'>
-        <button>New post</button>
+        <NewPostModal
+          isActive={newPostIsActive}
+          setIsActive={setNewPostIsActive}
+        />
+        <button onClick={() => setNewPostIsActive(!newPostIsActive)}>
+          New post
+        </button>
         <button>New story</button>
-        <button>Settings</button>
+        <ProfileSettingsModal
+          isActive={profileSettingsIsActive}
+          setIsActive={setProfileSettingsIsActive}
+        />
+        <button
+          onClick={() => setProfileSettingsIsActive(!profileSettingsIsActive)}
+        >
+          Settings
+        </button>
       </div>
     </div>
   );

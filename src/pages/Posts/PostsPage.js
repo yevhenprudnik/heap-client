@@ -1,5 +1,14 @@
 import Post from "../../components/Post/Post";
 
+const userExample = {
+  id: 2,
+  email: 'andrej.shmalenko@gmail.com',
+  username: 'Ganjubas',
+  avatar:
+    'https://media.istockphoto.com/id/1369182324/vector/abstract-numbers-colorful-linear-set-modern-numeric-lines-with-new-pop-art-colors.jpg?s=612x612&w=0&k=20&c=HfhXlv6y7x5o1PuhBB2X2VC2kmsUcnMLV6lgFbLcjrc=',
+  desription: 'Some text no more than 2000 characters...',
+};
+
 const posts = [
   {
     id: 1,
@@ -62,6 +71,139 @@ const posts = [
   },
 ];
 
+const comments = [
+  {
+    id: 0,
+    content: 'This comment to post with id 2!',
+    postId: 2,
+    commentId: 0,
+    author: {
+      id: 0,
+      username: 'Ganjubas',
+    },
+    replies: [],
+  },
+  {
+    id: 1,
+    content: 'This comment to post with id 2!',
+    postId: 2,
+    commentId: 0,
+    author: {
+      id: 0,
+      username: 'Ganjubas',
+    },
+    replies: [],
+  },
+  {
+    id: 2,
+    content: 'This comment to post with id 2!',
+    postId: 2,
+    commentId: 0,
+    author: {
+      id: 2,
+      username: 'Ganjubas',
+    },
+    replies: [],
+  },
+  {
+    id: 3,
+    content: 'This comment to post with id 3!',
+    postId: 3,
+    commentId: 0,
+    author: {
+      id: 2,
+      username: 'Ganjubas',
+    },
+    replies: [],
+  },
+  {
+    id: 4,
+    content: 'This comment to post with id 2!',
+    postId: 2,
+    commentId: 0,
+    author: {
+      id: 2,
+      username: 'Ganjubas',
+    },
+    replies: [
+      {
+        id: 0,
+        content: 'string',
+        postId: 0,
+        commentId: 0,
+        author: {
+          id: 0,
+          username: 'string',
+        },
+      },
+    ],
+  },
+  {
+    id: 5,
+    content: 'This comment to post with id 2!',
+    postId: 2,
+    commentId: 0,
+    author: {
+      id: 0,
+      username: 'Ganjubas',
+    },
+    replies: [
+      {
+        id: 1,
+        content: 'string',
+        postId: 0,
+        commentId: 0,
+        author: {
+          id: 0,
+          username: 'string',
+        },
+      },
+      {
+        id: 4,
+        content: 'WTF?',
+        postId: 0,
+        commentId: 0,
+        author: {
+          id: 0,
+          username: 'Ganjubasik <3',
+        },
+      },
+      {
+        id: 5,
+        content: 'Text',
+        postId: 0,
+        commentId: 0,
+        author: {
+          id: 0,
+          username: 'Mario',
+        },
+      },
+    ],
+  },
+  {
+    id: 6,
+    content: 'This comment to post with id 2!',
+    postId: 2,
+    commentId: 0,
+    author: {
+      id: 0,
+      username: 'Ganjubas',
+    },
+    replies: [
+      {
+        id: 2,
+        content: 'Reply to comment with id 6',
+        postId: 0,
+        commentId: 0,
+        author: {
+          id: 0,
+          username: 'Ganjubasik <3',
+        },
+      },
+    ],
+  },
+];
+
 export default function PostPage() {
   return (
     <div className="flex-col items-center w-50 center pa4" style={{
@@ -69,7 +211,7 @@ export default function PostPage() {
     }}>
       {posts.map((post, index) => (
         <div key={index} className="w-full max-w-md pb2 pt2">
-          <Post post={post} />
+          <Post user = {userExample} post={post} comments={comments.filter((comment) => comment.postId === post.id)} />
         </div>
       ))}
     </div>
