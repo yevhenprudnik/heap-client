@@ -18,12 +18,8 @@ export default function ProfilePage() {
   const fetchUser = async () => {
     try {
       const responseAuth = await api.get('http://localhost:9000/auth');
-      // const responsePost = await api.get('http://localhost:9000/post', {
-      //   params: { authorId: user.data.id },
-      // });
-
+      
       setUser(responseAuth.data);
-      // setPosts(responsePost.data);
     } catch (error) {
       console.log(error);
     }
