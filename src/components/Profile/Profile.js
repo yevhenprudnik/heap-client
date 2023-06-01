@@ -1,37 +1,31 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { connect } from 'react-redux';
 import NewPostModal from './newPostModal/newPostModal';
 import ProfileSettingsModal from './profileSettingsModal/profileSettingsModal';
 import '../../App.css';
 import './Profile.css';
-import { fetchUser } from '../../store/userSlice';
 
-function Profile({ userExample, getUser, userTest }) {
+function Profile({ user }) {
   const [newPostIsActive, setNewPostIsActive] = useState(false);
   const [profileSettingsIsActive, setProfileSettingsIsActive] = useState(false);
 
-  useEffect(() => {
-    getUser();
-  }, []);
-
   return (
     <div className="flex-ns flex-column items-center">
-      <h1>{JSON.stringify(userTest)}</h1>
       <div className="flex-ns flex-column items-center w-50 bg-light-gray">
         <div className="flex-ns">
           <div className="flex-ns justify-center items-center w50p">
             <div className="avatar">
-              <img src={userExample.avatar} alt="" className="avatar-image" />
+              <img src={user.avatar} alt="" className="avatar-image" />
             </div>
           </div>
           <div className="flex-ns flex-column">
-            <div className="fw6 f1">{userExample.username}</div>
+            <div className="fw6 f1">{user.username}</div>
             <div className="flex-ns justify-around f3 tc mv1">
               <div className="pa1">7 publications</div>
               <div className="pa1">100 subscribers</div>
               <div className="pa1">13 subscriptions</div>
             </div>
-            <div className="f4 mt4">{userExample.desription}</div>
+            <div className="f4 mt4">{user.desription}</div>
           </div>
         </div>
       </div>
@@ -60,13 +54,8 @@ function Profile({ userExample, getUser, userTest }) {
 
 function mapStateToProps(state) {
   return {
-    userTest: state.user.userTest,
-  };
-}
-function mapDispatchToProps(dispatch) {
-  return {
-    getUser: () => dispatch(fetchUser()),
+    user: state.userSlice.user,
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps)(Profile);

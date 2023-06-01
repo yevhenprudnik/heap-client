@@ -6,9 +6,11 @@ export const fetchUser = createAsyncThunk(
   async function (updateData, { rejectWithValue }) {
     try {
       const response = await api.get('auth');
+
       if (response.statusText !== 'OK') {
         throw new Error();
       }
+
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -17,17 +19,14 @@ export const fetchUser = createAsyncThunk(
 );
 
 const userSlice = createSlice({
-  name: 'user',
+  name: 'userSlice',
   initialState: {
-    userTest: {
-      username: 'No+name',
-    },
+    user: {},
+    posts: [],
   },
   reducers: {
     userLog(state, action) {
-      console.log(action.payload);
-
-      state.userTest = action.payload;
+      state.user = action.payload;
     },
   },
   extraReducers: {
@@ -36,12 +35,10 @@ const userSlice = createSlice({
       state.error = null;
     },
     [fetchUser.fulfilled]: (state, action) => {
-      console.log(action.payload);
-
       state.status = 'fulfilled';
       state.error = null;
 
-      state.userTest = action.payload;
+      state.user = action.payload;
     },
     [fetchUser.rejected]: (state, action) => {
       state.status = 'rejected';

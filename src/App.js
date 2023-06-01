@@ -11,7 +11,7 @@ import { api } from './api/api';
 import './App.css';
 import { fetchUser } from './store/userSlice';
 
-function App({ getUser, userTest }) {
+function App({ getUser, user }) {
   const [isAuthorized, setIsAuthorized] = useState(false);
 
   useEffect(() => {
@@ -28,14 +28,11 @@ function App({ getUser, userTest }) {
       }
     };
 
-    console.log({ userTest });
-
     loadUser();
-  }, []);
+  }, [getUser]);
 
   return (
     <>
-      <h1>{JSON.stringify(userTest)}</h1>
       <NavBar isAuthorized={isAuthorized} />
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
@@ -50,9 +47,10 @@ function App({ getUser, userTest }) {
 
 function mapStateToProps(state) {
   return {
-    userTest: state.user.userTest,
+    user: state.userSlice.user,
   };
 }
+
 function mapDispatchToProps(dispatch) {
   return {
     getUser: () => dispatch(fetchUser()),
