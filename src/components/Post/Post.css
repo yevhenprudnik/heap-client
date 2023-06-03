@@ -1,0 +1,133 @@
+.post {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  margin-bottom: 15px;
+  width: 50%;
+  min-width: 480px;
+  border-top: 1px solid black;
+}
+
+.author-avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  min-width: 75px;
+  min-height: 75px;
+  width: 75px;
+  height: 75px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.author-avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.author-username {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-left: 10px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.time-label {
+  font-size: 1rem;
+}
+
+.content-image {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+}
+
+.content-text {
+  font-size: 1.3rem;
+  text-align: justify;
+  text-justify: inter-word;
+  word-wrap: break-word;
+}
+
+.like {
+  cursor: pointer;
+  fill: white;
+  stroke: black;
+  stroke-width: 5%;
+  transition: 0.2s linear;
+}
+
+.like:hover {
+  stroke: gray;
+}
+
+.like:active {
+  transition: 50ms linear;
+  fill: red;
+  stroke: red;
+  transform: scale(1.2);
+}
+
+.liked {
+  cursor: pointer;
+  fill: red;
+  stroke: red;
+  stroke-width: 5%;
+  transition: 0.1s linear;
+}
+
+.comment {
+  transition: 0.2s linear;
+  cursor: pointer;
+  fill: white;
+  stroke: black;
+  stroke-width: 5%;
+}
+
+.comment:hover {
+  stroke: gray;
+}
+
+.edit {
+  cursor: pointer;
+  stroke: black;
+  transition: 0.2s linear;
+}
+
+.edit:hover {
+  stroke: gray;
+}
+
+.delete {
+  cursor: pointer;
+  stroke: tomato;
+  transition: 0.2s linear;
+}
+
+.delete:hover {
+  stroke: red;
+}
+
+@media (max-width: 1200px) {
+  .author-avatar {
+    min-width: 65px;
+    min-height: 65px;
+    width: 65px;
+    height: 65px;
+    border-width: 1px;
+  }
+  .author-username {
+    font-size: 1rem;
+  }
+  .time-label {
+    font-size: 0.75rem;
+  }
+  .content-text {
+    font-size: 1rem;
+  }
+}

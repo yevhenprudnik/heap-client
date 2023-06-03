@@ -2,12 +2,22 @@ import { useState } from 'react';
 import CommentsModal from './commentModal/commentsModal';
 import { connect } from 'react-redux';
 import { fetchDeletePost } from '../../store/postSlice';
+import { useLocation } from 'react-router-dom';
+import './Post.css';
+import { ReactComponent as Like } from '../../svg/like.svg';
+import { ReactComponent as Comment } from '../../svg/comment.svg';
+import { ReactComponent as Edit } from '../../svg/edit.svg';
+import { ReactComponent as Delete } from '../../svg/delete.svg';
 
 const defaultAvatar =
-  'https://static.vecteezy.com/system/resources/previews/009/734/564/original/default-avatar-profile-icon-of-social-media-user-vector.jpg';
+  'https://media.istockphoto.com/id/1369182324/vector/abstract-numbers-colorful-linear-set-modern-numeric-lines-with-new-pop-art-colors.jpg?s=612x612&w=0&k=20&c=HfhXlv6y7x5o1PuhBB2X2VC2kmsUcnMLV6lgFbLcjrc=';
 
 function Post({ user, post, deletePost, setUpdatePosts }) {
   const [modalIsActive, setModalIsActive] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+
+  const location = useLocation().pathname;
+  const postManagement = post.author.id === user.id && location === '/profile';
 
   const handleDeletePost = async () => {
     await deletePost(post.id);
@@ -15,26 +25,39 @@ function Post({ user, post, deletePost, setUpdatePosts }) {
   };
 
   return (
-    <div className="bg-gray-100 shadow-md p-4 mb-4 bb">
-      <div className="flex items-center mb-4">
-        <div className="w-10">
-          <img
-            className="w-12 h-12 mr-4"
-            style={{ borderRadius: '300%' }}
-            src={post.author.avatar || defaultAvatar}
-            alt={post.author.username}
-          />
+    <div className='post'>
+      <div className='flex-ns justify-between'>
+        <div className='flex-ns items-center mb3'>
+          <div className='author-avatar ml2'>
+            <img
+              className='author-avatar-image'
+              src={post.author.avatar || defaultAvatar}
+              alt={post.author.username}
+            />
+          </div>
+          <div className='author-username'>{post.author.username}</div>
         </div>
-        <h2 className="text-lg font-semibold">{post.author.username}</h2>
+        <div className='flex-ns items-center mb3 mr2'>
+          {post.createdAt === post.updatedAt ? (
+            <p className='time-label'>
+              {new Date(post.createdAt).toLocaleString()}
+            </p>
+          ) : (
+            <p className='time-label'>
+              Updated {new Date(post.updatedAt).toLocaleString()}
+            </p>
+          )}
+        </div>
       </div>
-      <div className="w-100">
-        <img
-          className="w-full br3 mb-4 w-100"
-          src={post.url}
-          alt="Post Content"
-        />
-      </div>
-      <p className="text-base mb-2">{post.content}</p>
+      {!!post.url && (
+        <div className='mb2'>
+          <img className='content-image' src={post.url} alt='Post Content' />
+        </div>
+      )}
+
+      {!!post.content && (
+        <div className='content-text mh2 mb2'>{post.content}</div>
+      )}
       {modalIsActive && (
         <CommentsModal
           isActive={modalIsActive}
@@ -43,25 +66,34 @@ function Post({ user, post, deletePost, setUpdatePosts }) {
           post={post}
         />
       )}
-      <div className="flex-ns">
-        <button>Like</button>
-        <button
-          onClick={() => {
-            setModalIsActive(true);
-          }}
-        >
-          Comments
-        </button>
-        {post.author.id === user.id && <button>Edit</button>}
-        {post.author.id === user.id && (
-          <button onClick={() => handleDeletePost()}>Delete</button>
+      <div className='flex-ns justify-between mh2 mt3'>
+        <div className='flex-ns items-center'>
+          <Like
+            className={!isLiked ? `like mr1` : `liked mr1`}
+            aria-label='Like'
+            title='Like'
+            onClick={() => setIsLiked(!isLiked)}
+          />
+          <Comment
+            className='comment ml1'
+            title="Comment's"
+            onClick={() => {
+              setModalIsActive(true);
+            }}
+          />
+        </div>
+        {postManagement && (
+          <div className='flex-ns'>
+            <Edit className='edit mr1' title='Edit post' />
+            <Delete
+              className='delete ml1'
+              title='Delete post'
+              onClick={() => handleDeletePost()}
+            />
+          </div>
         )}
       </div>
       {/* ############################################################# */}
-      <div className="flex justify-between text-sm text-gray-500">
-        <p>Created at: {new Date(post.createdAt).toLocaleString()}</p>
-        <p>Updated at: {new Date(post.updatedAt).toLocaleString()}</p>
-      </div>
     </div>
   );
 }
@@ -72,7 +104,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    deletePost: id => dispatch(fetchDeletePost(id)),
+    deletePost: (id) => dispatch(fetchDeletePost(id)),
   };
 }
 

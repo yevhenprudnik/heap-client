@@ -17,6 +17,7 @@ function CommentsModal({
 }) {
   const [content, setContent] = useState('');
   const [updateComments, setUpdateComments] = useState(false);
+  const [isScrollLocked, setIsScrollLocked] = useState(true);
 
   const handleCreateCommentPost = async () => {
     await createCommentPost({ content, id: post.id });
@@ -35,18 +36,34 @@ function CommentsModal({
     handleUpdateComments();
   }, [updateComments]);
 
+  useEffect(() => {
+    if (isScrollLocked) {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    };
+  }, [isScrollLocked]);
+
   return (
     <div
-      className={isActive ? 'window active' : 'window'}
+      className={isActive ? 'comments-window active' : 'comments-window'}
       onClick={() => {
+        setIsScrollLocked(false);
         setIsActive(false);
       }}
     >
       <div
         className={isActive ? 'commentsModal active' : 'commentsModal'}
-        onClick={e => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
       >
-        <div className="comments">
+        <div className='comments'>
           {comments.map((comment, index) => (
             <Comment
               key={index}
@@ -57,15 +74,15 @@ function CommentsModal({
             />
           ))}
         </div>
-        <div className="add-comment flex-ns justify-between">
+        <div className='add-comment flex-ns justify-between items-center'>
           <textarea
-            type="text"
-            className="comment-input f4"
-            placeholder="Write comment..."
-            onChange={e => setContent(e.target.value)}
+            type='text'
+            className='comment-input f4'
+            placeholder='Write comment...'
+            onChange={(e) => setContent(e.target.value)}
           />
           <button
-            className="comment-enter"
+            className='comment-send'
             onClick={() => {
               handleCreateCommentPost();
             }}
@@ -86,8 +103,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getPostComments: id => dispatch(fetchGetPostComments(id)),
-    createCommentPost: payload => dispatch(fetchCreateCommentPost(payload)),
+    getPostComments: (id) => dispatch(fetchGetPostComments(id)),
+    createCommentPost: (payload) => dispatch(fetchCreateCommentPost(payload)),
   };
 }
 

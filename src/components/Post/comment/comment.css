@@ -7,3 +7,51 @@
   .replies-list.open {
     height: auto ;
   }
+
+  .comment-content {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+  }
+
+  .comment-component {
+    border-bottom: 1px solid black;
+  }
+
+  .repliesToggleBtn {
+    max-height: 25px;
+  }
+
+  .reply-label {
+    font-size: 1.1rem;
+  }
+
+  .replyBtn {
+    cursor: pointer;
+    border: 2px solid gray;
+    border-radius: 10px;
+    padding: 0px 10px 0px 5px;
+    fill: gray;
+    color: gray;
+    transition: 0.2s linear;
+  }
+
+  .replyBtn:hover {
+    fill: black;
+    color: black;
+    border-color: black;
+  }
+
+  .like-comment {
+    fill: white;
+    stroke: gray;
+    stroke-width: 10px;
+  }
+
+  @media (max-width: 1200px) {
+    .comment-content {
+      font-size: 1rem;
+    }
+    .reply-label {
+      font-size: 0.95rem;
+    }
+  }

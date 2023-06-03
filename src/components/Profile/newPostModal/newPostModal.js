@@ -14,32 +14,37 @@ function NewPostModal({ isActive, setIsActive, createPost }) {
 
   return (
     <div
-      className={isActive ? 'window active' : 'window'}
+      className={isActive ? 'new-post-window active' : 'new-post-window'}
       onClick={() => {
         setIsActive(false);
       }}
     >
       <div
         className={isActive ? 'newPostModal active' : 'newPostModal'}
-        onClick={e => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
       >
         <div>Image URL</div>
         <div>
-          <input type="text" onChange={e => setImgUrl(e.target.value)} />
+          <input type='text' onChange={(e) => setImgUrl(e.target.value)} />
+        </div>
+        <div>
+          <input type='file' onChange={(e) => console.log(e.target)}/>
         </div>
         <div>Content</div>
         <div>
-          <textarea onChange={e => setContent(e.target.value)} />
+          <textarea onChange={(e) => setContent(e.target.value)} />
+        </div>
+        <div>
+          <button
+            onClick={() => {
+              pushPost();
+              window.location.reload();
+            }}
+          >
+            Send
+          </button>
         </div>
       </div>
-      <button
-        onClick={() => {
-          pushPost();
-          window.location.reload();
-        }}
-      >
-        Send
-      </button>
     </div>
   );
 }
@@ -50,7 +55,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createPost: payload => dispatch(fetchCreatePost(payload)),
+    createPost: (payload) => dispatch(fetchCreatePost(payload)),
   };
 }
 

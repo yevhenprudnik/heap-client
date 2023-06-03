@@ -13,16 +13,9 @@ function PostPage({ user, posts, getUserPosts }) {
   }, []);
 
   return (
-    <div
-      className="flex-col items-center w-50 center pa4"
-      style={{
-        backgroundColor: 'rgba(211, 211, 211, 0.3)',
-      }}
-    >
+    <div className='posts'>
       {posts.map((post, index) => (
-        <div key={index} className="w-full max-w-md pb2 pt2">
-          <Post user={user} post={post} />
-        </div>
+          <Post key={index} user={user} post={post} />
       ))}
     </div>
   );

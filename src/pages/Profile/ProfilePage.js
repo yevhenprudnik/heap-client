@@ -3,6 +3,7 @@ import Post from '../../components/Post/Post';
 import { connect } from 'react-redux';
 import { fetchUserPosts } from '../../store/postSlice';
 import { useEffect, useState } from 'react';
+import './ProfilePage.css';
 
 function ProfilePage({ user, posts, getUserPosts }) {
   const [updatePosts, setUpdatePosts] = useState(false);
@@ -20,15 +21,13 @@ function ProfilePage({ user, posts, getUserPosts }) {
   }, [updatePosts]);
 
   return (
-    <div className="flex-column justify-center mt3">
+    <div className='flex-column justify-center mt3'>
       <Profile userExample={user} />
-      <div className="flex-col items-center w-50 center pa4 bg-light-gray">
+      <div className='posts'>
         {posts.map((post, index) => (
-          <div key={index} className="w-full max-w-md pb2 pt2">
-            {user.id === post.author.id && (
-              <Post user={user} post={post} setUpdatePosts={setUpdatePosts} />
-            )}
-          </div>
+            user.id === post.author.id && (
+              <Post key={index} user={user} post={post} setUpdatePosts={setUpdatePosts} />
+            )
         ))}
       </div>
     </div>
@@ -44,7 +43,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getUserPosts: id => dispatch(fetchUserPosts(id)),
+    getUserPosts: (id) => dispatch(fetchUserPosts(id)),
   };
 }
 

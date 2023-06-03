@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { connect } from 'react-redux';
 import NewPostModal from './newPostModal/newPostModal';
 import ProfileSettingsModal from './profileSettingsModal/profileSettingsModal';
+import { ReactComponent as Add } from '../../svg/add.svg';
+import { ReactComponent as Story } from '../../svg/story.svg';
+import { ReactComponent as Settings } from '../../svg/settings.svg';
 import '../../App.css';
 import './Profile.css';
 
@@ -9,44 +12,47 @@ function Profile({ user }) {
   const [newPostIsActive, setNewPostIsActive] = useState(false);
   const [profileSettingsIsActive, setProfileSettingsIsActive] = useState(false);
 
+  const defaultAvatar =
+    'https://media.istockphoto.com/id/1369182324/vector/abstract-numbers-colorful-linear-set-modern-numeric-lines-with-new-pop-art-colors.jpg?s=612x612&w=0&k=20&c=HfhXlv6y7x5o1PuhBB2X2VC2kmsUcnMLV6lgFbLcjrc=';
+
   return (
-    <div className="flex-ns flex-column items-center">
-      <div className="flex-ns flex-column items-center w-50 bg-light-gray">
-        <div className="flex-ns">
-          <div className="flex-ns justify-center items-center w50p">
-            <div className="avatar">
-              <img src={user.avatar} alt="" className="avatar-image" />
-            </div>
-          </div>
-          <div className="flex-ns flex-column">
-            <div className="fw6 f1">{user.username}</div>
-            <div className="flex-ns justify-around f3 tc mv1">
-              <div className="pa1">7 publications</div>
-              <div className="pa1">100 subscribers</div>
-              <div className="pa1">13 subscriptions</div>
-            </div>
-            <div className="f4 mt4">{user.desription}</div>
-          </div>
+    <div className='flex-ns flex-column items-center'>
+      <div className='flex-ns profile'>
+        <div className='avatar'>
+          <img
+            src={user.avatar || defaultAvatar}
+            alt=''
+            className='avatar-image'
+          />
+        </div>
+        <div className='data'>
+          <div className='username'>{user.username}</div>
         </div>
       </div>
-      <div className="flex-ns justify-around w-50 mv3 pv3 bg-light-gray">
+      <div className='options'>
         <NewPostModal
           isActive={newPostIsActive}
           setIsActive={setNewPostIsActive}
         />
-        <button onClick={() => setNewPostIsActive(!newPostIsActive)}>
-          New post
-        </button>
-        <button>New story</button>
+        <div className='options-svg'>
+          <Add onClick={() => setNewPostIsActive(!newPostIsActive)} />
+          <div className='fw6 f4'>Add post</div>
+        </div>
+
+        <div className='options-svg'>
+          <Story />
+          <div className='fw6 f4'>New story</div>
+        </div>
         <ProfileSettingsModal
           isActive={profileSettingsIsActive}
           setIsActive={setProfileSettingsIsActive}
         />
-        <button
-          onClick={() => setProfileSettingsIsActive(!profileSettingsIsActive)}
-        >
-          Settings
-        </button>
+        <div className='options-svg'>
+          <Settings
+            onClick={() => setProfileSettingsIsActive(!profileSettingsIsActive)}
+          />
+          <div className='fw6 f4'>Settings</div>
+        </div>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import ProfileSettings from '../profileSettings/profileSettings';
 export default function ProfileSettingsModal({ isActive, setIsActive }) {
   return (
     <div
-      className={isActive ? 'window active' : 'window'}
+      className={isActive ? 'profile-settings-window active' : 'profile-settings-window'}
       onClick={() => {
         setIsActive(false);
       }}
