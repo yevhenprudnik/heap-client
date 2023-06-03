@@ -1,57 +1,122 @@
 .replies-list {
-    height: 0;
-    overflow: hidden;
-    transition: height 0.3s ease;
-  }
-  
-  .replies-list.open {
-    height: auto ;
-  }
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease;
+  max-width: 80%;
+}
 
+.replies-list.open {
+  height: auto;
+}
+
+.comment-content {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.comment-component {
+  border-bottom: 1px solid black;
+}
+
+.repliesToggleBtn {
+  max-height: 25px;
+  min-height: 25px;
+  border: none;
+  background-color: white;
+  transition: 0.2s linear;
+  color: gray;
+}
+
+.repliesToggleBtn:hover {
+  color: black;
+}
+
+.reply-label {
+  font-size: 1.1rem;
+}
+
+.replyBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 0px 10px 0px 5px;
+  fill: gray;
+  stroke: gray;
+  color: gray;
+  transition: 0.2s linear;
+}
+
+.replyBtn:hover {
+  fill: black;
+  stroke: black;
+  color: black;
+  border-color: black;
+}
+
+.like-comment {
+  cursor: pointer;
+  fill: white;
+  stroke: gray;
+  stroke-width: 5%;
+  transition: 0.1s linear;
+}
+
+.like-comment:hover {
+  stroke: black;
+}
+
+.like-comment:active {
+  transition: 50ms linear;
+  transform: scale(1.2);
+}
+
+.liked-comment {
+  cursor: pointer;
+  fill: red;
+  stroke: red;
+  stroke-width: 5%;
+}
+
+.delete-comment {
+  cursor: pointer;
+  stroke: gray;
+  transition: 0.1s linear;
+}
+
+.delete-comment:hover {
+  stroke: red;
+}
+
+.reply-area {
+  width: 95%;
+  border-radius: 7px;
+  outline: none;
+  border: 2px solid lightgray;
+  resize: none;
+  transition: 0.2s linear;
+}
+
+.reply-area:focus {
+  border-color: black;
+}
+
+.send-reply-btn {
+  width: 5%;
+  cursor: pointer;
+  fill: gray;
+  transition: 0.2s linear;
+}
+
+.send-reply-btn:hover {
+  fill: black;
+}
+
+@media (max-width: 1200px) {
   .comment-content {
-    font-size: 1.25rem;
-    margin-bottom: 10px;
+    font-size: 1rem;
   }
-
-  .comment-component {
-    border-bottom: 1px solid black;
-  }
-
-  .repliesToggleBtn {
-    max-height: 25px;
-  }
-
   .reply-label {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
   }
-
-  .replyBtn {
-    cursor: pointer;
-    border: 2px solid gray;
-    border-radius: 10px;
-    padding: 0px 10px 0px 5px;
-    fill: gray;
-    color: gray;
-    transition: 0.2s linear;
-  }
-
-  .replyBtn:hover {
-    fill: black;
-    color: black;
-    border-color: black;
-  }
-
-  .like-comment {
-    fill: white;
-    stroke: gray;
-    stroke-width: 10px;
-  }
-
-  @media (max-width: 1200px) {
-    .comment-content {
-      font-size: 1rem;
-    }
-    .reply-label {
-      font-size: 0.95rem;
-    }
-  }
+}

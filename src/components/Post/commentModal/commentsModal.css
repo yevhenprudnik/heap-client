@@ -47,10 +47,10 @@
   outline: none;
   transition: 0.2s linear;
   resize: none;
-  width: 90%;
+  width: 95%;
   height: 100%;
   border-radius: 10px;
-  border: 2px solid gray;
+  border: 2px solid lightgray;
 }
 
 .comment-input:focus {
@@ -58,5 +58,12 @@
 }
 
 .comment-send {
-  width: 10%;
+  cursor: pointer;
+  width: 5%;
+  fill: gray;
+  transition: 0.2s linear;
+}
+
+.comment-send:hover {
+  fill: black;
 }

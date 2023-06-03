@@ -7,6 +7,9 @@ import {
 import { connect } from 'react-redux';
 import { ReactComponent as Reply } from '../../../svg/reply.svg';
 import { ReactComponent as LikeComment } from '../../../svg/like_comment.svg';
+import { ReactComponent as DeleteComment } from '../../../svg/delete_comment.svg';
+import { ReactComponent as CloseReply } from '../../../svg/close_reply.svg';
+import {ReactComponent as SendReply} from '../../../svg/send_reply.svg';
 
 function Comment({
   user,
@@ -38,32 +41,33 @@ function Comment({
         {`: ${comment.content}`}
       </div>
       <div className='flex-ns justify-between'>
-        <div className='replyBtn'>
-          <div
-            className='flex-ns justify-center items-center'
+        <div className='replyBtn'
             onClick={() => setReplyFieldIsOpen(!replyFieldIsOpen)}
           >
-            <Reply className='reply-svg' />
+            {replyFieldIsOpen? <CloseReply /> : <Reply />}
             <div className='reply-label'>
               {!replyFieldIsOpen ? 'reply' : 'close'}
-            </div>
           </div>
         </div>
         <div>
           <LikeComment
-            className={!isLikedComment ? 'like-comment' : 'liked-commend'}
+            className={!isLikedComment ? 'like-comment mh2' : 'liked-comment ph2'}
+            title='Like comment'
             onClick={() => setIsLikedComment(!isLikedComment)}
           />
-          {user.id === comment.author.id && <button>edit</button>}
           {user.id === comment.author.id && (
-            <button onClick={() => handleDeleteComment()}>delete</button>
+            <DeleteComment
+              className='delete-comment ph1'
+              title='Delete comment'
+              onClick={() => handleDeleteComment()}
+            />
           )}
         </div>
       </div>
       {replyFieldIsOpen && (
-        <div>
-          <textarea onChange={(e) => setContent(e.target.value)} />
-          <button onClick={() => handleCreateCommentReply()}>Enter</button>
+        <div className='flex-ns items-center justify-between'>
+          <textarea className='reply-area' placeholder='Reply...' onChange={(e) => setContent(e.target.value)} />
+          <SendReply className='send-reply-btn' title='Send reply' onClick={() => handleCreateCommentReply()}/>
         </div>
       )}
       {comment.replies.length > 0 && (
@@ -78,7 +82,7 @@ function Comment({
             {comment.replies.map((reply, index) => (
               <li
                 key={index}
-              >{`${reply.author.username}: ${reply.content}`}</li>
+              ><span className='fw6'>{`${reply.author.username}:`}</span>{` ${reply.content}`}</li>
             ))}
           </ul>
         </div>

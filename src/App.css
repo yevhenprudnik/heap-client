@@ -12,6 +12,11 @@ header {
   border-color: lightgray;
 }
 
+li {
+  list-style-type: none;
+  word-wrap: break-word;
+}
+
 .fullPage {
   width: 100vw;
   height: 100vh;

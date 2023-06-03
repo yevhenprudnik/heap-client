@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { fetchGetPostComments } from '../../../store/commentSlice';
 import { fetchCreateCommentPost } from '../../../store/commentSlice';
 import { connect } from 'react-redux';
+import {ReactComponent as SendComment} from '../../../svg/send_comment.svg';
+
 
 function CommentsModal({
   isActive,
@@ -22,6 +24,7 @@ function CommentsModal({
   const handleCreateCommentPost = async () => {
     await createCommentPost({ content, id: post.id });
     await getPostComments(post.id);
+    setContent('');
   };
 
   useEffect(() => {
@@ -34,7 +37,7 @@ function CommentsModal({
     }
 
     handleUpdateComments();
-  }, [updateComments]);
+  }, [updateComments, getPostComments, post.id]);
 
   useEffect(() => {
     if (isScrollLocked) {
@@ -68,27 +71,26 @@ function CommentsModal({
             <Comment
               key={index}
               user={user}
-              post={post}
               comment={comment}
               setUpdateComments={setUpdateComments}
             />
           ))}
         </div>
-        <div className='add-comment flex-ns justify-between items-center'>
+        <div className='add-comment flex-ns justify-between items-center pt1'>
           <textarea
             type='text'
+            value={content}
             className='comment-input f4'
-            placeholder='Write comment...'
+            placeholder='Your comment...'
             onChange={(e) => setContent(e.target.value)}
           />
-          <button
+          <SendComment
             className='comment-send'
+            title='Send comment'
             onClick={() => {
               handleCreateCommentPost();
             }}
-          >
-            Enter
-          </button>
+          />
         </div>
       </div>
     </div>
