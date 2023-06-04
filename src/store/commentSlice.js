@@ -20,6 +20,24 @@ export const fetchGetPostComments = createAsyncThunk(
   }
 );
 
+export const fetchCommentLike = createAsyncThunk(
+  'post/fetchCommentLike',
+  async function (id, { rejectWithValue }) {
+    try {
+      const response = await api.post(`like/${id}?type=comment`);
+
+      console.log(response.data);
+      if (response.statusText !== 'OK') {
+        throw new Error();
+      }
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const fetchCreateCommentPost = createAsyncThunk(
   'comment/fetchCreateCommentPost',
   async function (payload, { getState, rejectWithValue }) {
@@ -136,6 +154,19 @@ const commentSlice = createSlice({
       state.error = null;
     },
     [fetchCreateCommentReply.rejected]: (state, action) => {
+      state.status = 'rejected';
+      state.error = action.payload;
+    },
+
+    [fetchCommentLike.pending]: state => {
+      state.status = 'pending';
+      state.error = null;
+    },
+    [fetchCommentLike.fulfilled]: (state, action) => {
+      state.status = 'fulfilled';
+      state.error = null;
+    },
+    [fetchCommentLike.rejected]: (state, action) => {
       state.status = 'rejected';
       state.error = action.payload;
     },

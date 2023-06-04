@@ -5,13 +5,21 @@ import { fetchUserPosts } from '../../store/postSlice';
 import { useEffect, useState } from 'react';
 import './ProfilePage.css';
 import { useParams } from 'react-router-dom';
+import { fetchTargetUser } from '../../store/userSlice';
 
-function ProfilePage({ user, posts, getUserPosts }) {
+function ProfilePage({
+  targetUser,
+  posts,
+  getUserPosts,
+  currentUser,
+  getTargetUser,
+}) {
   const { id } = useParams();
   const [updatePosts, setUpdatePosts] = useState(false);
 
   useEffect(() => {
     const loadPosts = async () => {
+      await getTargetUser(id);
       await getUserPosts(id);
     };
     if (updatePosts === true) {
@@ -20,16 +28,17 @@ function ProfilePage({ user, posts, getUserPosts }) {
     }
 
     loadPosts();
-  }, [updatePosts, id, getUserPosts]);
-  console.log(posts);
+  }, [updatePosts, id, getUserPosts, getTargetUser]);
+
   return (
-    <div className='flex-column justify-center mt3'>
-      <Profile userExample={user} />
-      <div className='posts'>
+    <div className="flex-column justify-center mt3">
+      <Profile />
+      <div className="posts">
         {posts.map((post, index) => (
           <Post
             key={index}
-            user={user}
+            targetUser={targetUser}
+            currentUser={currentUser}
             post={post}
             setUpdatePosts={setUpdatePosts}
           />
@@ -41,14 +50,16 @@ function ProfilePage({ user, posts, getUserPosts }) {
 
 function mapStateToProps(state) {
   return {
-    user: state.userSlice.user,
+    targetUser: state.userSlice.targetUser,
+    currentUser: state.userSlice.currentUser,
     posts: state.postSlice.posts,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    getUserPosts: (id) => dispatch(fetchUserPosts(id)),
+    getTargetUser: id => dispatch(fetchTargetUser(id)),
+    getUserPosts: id => dispatch(fetchUserPosts(id)),
   };
 }
 

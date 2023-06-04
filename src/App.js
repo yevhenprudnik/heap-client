@@ -9,17 +9,16 @@ import PostsPage from './pages/Posts/PostsPage';
 import ProfilePage from './pages/Profile/ProfilePage';
 import { api } from './api/api';
 import './App.css';
-import { fetchIdUser, fetchUser } from './store/userSlice';
+import { fetchCurrentUser } from './store/userSlice';
 
-function App({ getUserId, userId, user, getUser }) {
+function App({ getCurrentUser, currentUser, targetUser }) {
   const [isAuthorized, setIsAuthorized] = useState(false);
 
   useEffect(() => {
     const loadUser = async () => {
       try {
         const response = await api.get('auth');
-        await getUserId();
-        await getUser(response.data.id);
+        await getCurrentUser(response.data.id);
         if (response.statusText === 'OK') {
           setIsAuthorized(true);
         }
@@ -29,7 +28,7 @@ function App({ getUserId, userId, user, getUser }) {
     };
 
     loadUser();
-  }, [getUser]);
+  }, [getCurrentUser]);
 
   return (
     <>
@@ -47,14 +46,14 @@ function App({ getUserId, userId, user, getUser }) {
 
 function mapStateToProps(state) {
   return {
-    user: state.userSlice.user,
+    currentUser: state.userSlice.currentUser,
+    targetUser: state.userSlice.targetUser,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    getUserId: () => dispatch(fetchIdUser()),
-    getUser: id => dispatch(fetchUser(id)),
+    getCurrentUser: id => dispatch(fetchCurrentUser(id)),
   };
 }
 

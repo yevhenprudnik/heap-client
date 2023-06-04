@@ -5,13 +5,12 @@ import { useState } from 'react';
 import { fetchGetPostComments } from '../../../store/commentSlice';
 import { fetchCreateCommentPost } from '../../../store/commentSlice';
 import { connect } from 'react-redux';
-import {ReactComponent as SendComment} from '../../../svg/send_comment.svg';
-
+import { ReactComponent as SendComment } from '../../../svg/send_comment.svg';
 
 function CommentsModal({
   isActive,
   setIsActive,
-  user,
+  currentUser,
   comments,
   post,
   createCommentPost,
@@ -64,29 +63,29 @@ function CommentsModal({
     >
       <div
         className={isActive ? 'commentsModal active' : 'commentsModal'}
-        onClick={(e) => e.stopPropagation()}
+        onClick={e => e.stopPropagation()}
       >
-        <div className='comments'>
+        <div className="comments">
           {comments.map((comment, index) => (
             <Comment
               key={index}
-              user={user}
+              user={currentUser}
               comment={comment}
               setUpdateComments={setUpdateComments}
             />
           ))}
         </div>
-        <div className='add-comment flex-ns justify-between items-center pt1'>
+        <div className="add-comment flex-ns justify-between items-center pt1">
           <textarea
-            type='text'
+            type="text"
             value={content}
-            className='comment-input f4'
-            placeholder='Your comment...'
-            onChange={(e) => setContent(e.target.value)}
+            className="comment-input f4"
+            placeholder="Your comment..."
+            onChange={e => setContent(e.target.value)}
           />
           <SendComment
-            className='comment-send'
-            title='Send comment'
+            className="comment-send"
+            title="Send comment"
             onClick={() => {
               handleCreateCommentPost();
             }}
@@ -105,8 +104,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getPostComments: (id) => dispatch(fetchGetPostComments(id)),
-    createCommentPost: (payload) => dispatch(fetchCreateCommentPost(payload)),
+    getPostComments: id => dispatch(fetchGetPostComments(id)),
+    createCommentPost: payload => dispatch(fetchCreateCommentPost(payload)),
   };
 }
 

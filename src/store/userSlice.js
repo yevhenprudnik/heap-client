@@ -18,8 +18,46 @@ export const fetchIdUser = createAsyncThunk(
   }
 );
 
-export const fetchUser = createAsyncThunk(
-  'user/fetchUser',
+export const fetchCurrentUser = createAsyncThunk(
+  'user/fetchCurrentUser',
+  async function (id, { getState, rejectWithValue }) {
+    try {
+      const response = await api.get(`user/${id}`);
+
+      if (response.statusText !== 'OK') {
+        throw new Error();
+      }
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchPatchUser = createAsyncThunk(
+  'user/fetchPatchUser',
+  async function (payload, { getState, rejectWithValue }) {
+    try {
+      console.log(payload);
+      const response = await api.patch(`user`, {
+        username: payload.username,
+        avatar: payload.avatar,
+      });
+
+      if (response.statusText !== 'OK') {
+        throw new Error();
+      }
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchTargetUser = createAsyncThunk(
+  'user/fetchTargetUser',
   async function (id, { getState, rejectWithValue }) {
     try {
       const response = await api.get(`user/${id}`);
@@ -39,7 +77,8 @@ const userSlice = createSlice({
   name: 'userSlice',
   initialState: {
     userId: null,
-    user: {},
+    targetUser: {},
+    currentUser: {},
     posts: [],
   },
   reducers: {
@@ -63,17 +102,45 @@ const userSlice = createSlice({
       state.error = action.payload;
     },
 
-    [fetchUser.pending]: state => {
+    [fetchCurrentUser.pending]: state => {
       state.status = 'pending';
       state.error = null;
     },
-    [fetchUser.fulfilled]: (state, action) => {
+    [fetchCurrentUser.fulfilled]: (state, action) => {
       state.status = 'fulfilled';
       state.error = null;
 
-      state.user = action.payload;
+      state.currentUser = action.payload;
     },
-    [fetchUser.rejected]: (state, action) => {
+    [fetchCurrentUser.rejected]: (state, action) => {
+      state.status = 'rejected';
+      state.error = action.payload;
+    },
+
+    [fetchTargetUser.pending]: state => {
+      state.status = 'pending';
+      state.error = null;
+    },
+    [fetchTargetUser.fulfilled]: (state, action) => {
+      state.status = 'fulfilled';
+      state.error = null;
+
+      state.targetUser = action.payload;
+    },
+    [fetchTargetUser.rejected]: (state, action) => {
+      state.status = 'rejected';
+      state.error = action.payload;
+    },
+
+    [fetchPatchUser.pending]: state => {
+      state.status = 'pending';
+      state.error = null;
+    },
+    [fetchPatchUser.fulfilled]: (state, action) => {
+      state.status = 'fulfilled';
+      state.error = null;
+    },
+    [fetchPatchUser.rejected]: (state, action) => {
       state.status = 'rejected';
       state.error = action.payload;
     },

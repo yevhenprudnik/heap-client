@@ -18,6 +18,40 @@ export const fetchPosts = createAsyncThunk(
   }
 );
 
+export const fetchPostLikePost = createAsyncThunk(
+  'post/fetchPostLikePost',
+  async function (id, { rejectWithValue }) {
+    try {
+      const response = await api.post(`like/${id}?type=post`);
+
+      if (response.statusText !== 'OK') {
+        throw new Error();
+      }
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchGetLikePost = createAsyncThunk(
+  'post/fetchGetLikePost',
+  async function (id, { rejectWithValue }) {
+    try {
+      const response = await api.get(`like/${id}?type=post`);
+
+      if (response.statusText !== 'OK') {
+        throw new Error();
+      }
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const fetchUserPosts = createAsyncThunk(
   'post/fetchUserPosts',
   async function (id, { getState, rejectWithValue }) {
@@ -78,6 +112,7 @@ const postSlice = createSlice({
   name: 'postSlice',
   initialState: {
     posts: [],
+    postLikes: [],
   },
   reducers: {
     postsLog(state, action) {
@@ -137,6 +172,34 @@ const postSlice = createSlice({
       state.error = null;
     },
     [fetchDeletePost.rejected]: (state, action) => {
+      state.status = 'rejected';
+      state.error = action.payload;
+    },
+
+    [fetchPostLikePost.pending]: state => {
+      state.status = 'pending';
+      state.error = null;
+    },
+    [fetchPostLikePost.fulfilled]: (state, action) => {
+      state.status = 'fulfilled';
+      state.error = null;
+    },
+    [fetchPostLikePost.rejected]: (state, action) => {
+      state.status = 'rejected';
+      state.error = action.payload;
+    },
+
+    [fetchGetLikePost.pending]: state => {
+      state.status = 'pending';
+      state.error = null;
+    },
+    [fetchGetLikePost.fulfilled]: (state, action) => {
+      state.status = 'fulfilled';
+      state.error = null;
+
+      state.postLikes = action.payload;
+    },
+    [fetchGetLikePost.rejected]: (state, action) => {
       state.status = 'rejected';
       state.error = action.payload;
     },

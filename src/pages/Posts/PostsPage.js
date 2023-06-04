@@ -3,19 +3,20 @@ import { connect } from 'react-redux';
 import { fetchPosts } from '../../store/postSlice';
 import { useEffect } from 'react';
 
-function PostPage({ user, posts, getUserPosts }) {
+function PostPage({ posts, getPosts }) {
   useEffect(() => {
     const loadPosts = async () => {
-      await getUserPosts(user.id);
+      await getPosts();
     };
 
     loadPosts();
-  }, []);
+  }, [getPosts]);
 
+  console.log(posts);
   return (
-    <div className='posts'>
+    <div className="posts">
       {posts.map((post, index) => (
-          <Post key={index} user={user} post={post} />
+        <Post key={index} post={post} />
       ))}
     </div>
   );
@@ -23,14 +24,13 @@ function PostPage({ user, posts, getUserPosts }) {
 
 function mapStateToProps(state) {
   return {
-    user: state.userSlice.user,
     posts: state.postSlice.posts,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    getUserPosts: id => dispatch(fetchPosts(id)),
+    getPosts: id => dispatch(fetchPosts(id)),
   };
 }
 
