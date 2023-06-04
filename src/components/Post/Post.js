@@ -8,14 +8,16 @@ import { ReactComponent as Like } from '../../svg/like.svg';
 import { ReactComponent as Comment } from '../../svg/comment.svg';
 import { ReactComponent as Edit } from '../../svg/edit.svg';
 import { ReactComponent as Delete } from '../../svg/delete.svg';
+import EditPost from './editPostModal/editPostModal';
 
 const defaultAvatar =
   'https://media.istockphoto.com/id/1369182324/vector/abstract-numbers-colorful-linear-set-modern-numeric-lines-with-new-pop-art-colors.jpg?s=612x612&w=0&k=20&c=HfhXlv6y7x5o1PuhBB2X2VC2kmsUcnMLV6lgFbLcjrc=';
 
 function Post({ user, post, deletePost, setUpdatePosts }) {
-  const [modalIsActive, setModalIsActive] = useState(false);
+  const [commentsModalIsActive, setCommentsModalIsActive] = useState(false);
+  const [editPostModalIsActive, setEditPostModalIsActive] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
-
+  
   const location = useLocation().pathname;
   const postManagement = post.author.id === user.id && location === '/profile';
 
@@ -54,16 +56,21 @@ function Post({ user, post, deletePost, setUpdatePosts }) {
           <img className='content-image' src={post.url} alt='Post Content' />
         </div>
       )}
-
       {!!post.content && (
         <div className='content-text mh2 mb2'>{post.content}</div>
       )}
-      {modalIsActive && (
+      {commentsModalIsActive && (
         <CommentsModal
-          isActive={modalIsActive}
-          setIsActive={setModalIsActive}
+          isActive={commentsModalIsActive}
+          setIsActive={setCommentsModalIsActive}
           user={user}
           post={post}
+        />
+      )}
+      {editPostModalIsActive && (
+        <EditPost
+          isActive={editPostModalIsActive}
+          setIsActive={setEditPostModalIsActive}
         />
       )}
       <div className='flex-ns justify-between mh2 mt3'>
@@ -78,13 +85,17 @@ function Post({ user, post, deletePost, setUpdatePosts }) {
             className='comment ml1'
             title="Comment's"
             onClick={() => {
-              setModalIsActive(true);
+              setCommentsModalIsActive(true);
             }}
           />
         </div>
         {postManagement && (
           <div className='flex-ns'>
-            <Edit className='edit mr1' title='Edit post' />
+            <Edit
+              className='edit mr1'
+              title='Edit post'
+              onClick={() => setEditPostModalIsActive(true)}
+            />
             <Delete
               className='delete ml1'
               title='Delete post'
@@ -93,6 +104,8 @@ function Post({ user, post, deletePost, setUpdatePosts }) {
           </div>
         )}
       </div>
+      <div className='mt3 ml2'>Likes: {post.likeCount}</div>
+      <div className='mt1 ml2'>Comments: 313</div>
       {/* ############################################################# */}
     </div>
   );

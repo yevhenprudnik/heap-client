@@ -27,9 +27,6 @@ function NewPostModal({ isActive, setIsActive, createPost }) {
         <div>
           <input type='text' onChange={(e) => setImgUrl(e.target.value)} />
         </div>
-        <div>
-          <input type='file' onChange={(e) => console.log(e.target)}/>
-        </div>
         <div>Content</div>
         <div>
           <textarea onChange={(e) => setContent(e.target.value)} />

@@ -16,25 +16,23 @@ export default function NavBar({ isAuthorized }) {
         <Link to='/posts' className={nawBarMainLinkStyle}>
           Posts
         </Link>
+        <Link to='/profile' className={nawBarMainLinkStyle}>
+          Profile
+        </Link>
       </div>
       <div>
         {isAuthorized ? (
-          <div>
-            <Link to='/profile' className={nawBarAuthLinkStyle}>
-              Profile
-            </Link>
-            <button
-              className={nawBarAuthLinkStyle}
-              onClick={() => {
-                localStorage.removeItem('accessToken');
-                localStorage.removeItem('refreshToken');
+          <button
+            className={nawBarAuthLinkStyle}
+            onClick={() => {
+              localStorage.removeItem('accessToken');
+              localStorage.removeItem('refreshToken');
 
-                window.location.reload();
-              }}
-            >
-              SignOut
-            </button>
-          </div>
+              window.location.reload();
+            }}
+          >
+            SignOut
+          </button>
         ) : (
           <div>
             <Link to='/login' className={nawBarAuthLinkStyle}>

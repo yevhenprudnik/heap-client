@@ -26,7 +26,8 @@
 
 .data {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   margin: 15px;
   width: 100%;
 }
@@ -62,6 +63,13 @@
   stroke: gray;
 }
 
+.user-attributes {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  font-size: 1.25rem;
+}
+
 @media (max-width: 1200px) {
   .avatar {
     min-width: 200px;
@@ -74,5 +82,8 @@
   }
   .username {
     font-size: 2.25rem;
+  }
+  .user-attributes {
+    font-size: 0.9rem;
   }
 }
