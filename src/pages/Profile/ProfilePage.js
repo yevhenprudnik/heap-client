@@ -4,13 +4,15 @@ import { connect } from 'react-redux';
 import { fetchUserPosts } from '../../store/postSlice';
 import { useEffect, useState } from 'react';
 import './ProfilePage.css';
+import { useParams } from 'react-router-dom';
 
 function ProfilePage({ user, posts, getUserPosts }) {
+  const { id } = useParams();
   const [updatePosts, setUpdatePosts] = useState(false);
 
   useEffect(() => {
     const loadPosts = async () => {
-      await getUserPosts(user.id);
+      await getUserPosts(id);
     };
     if (updatePosts === true) {
       loadPosts();
@@ -18,16 +20,19 @@ function ProfilePage({ user, posts, getUserPosts }) {
     }
 
     loadPosts();
-  }, [updatePosts]);
-
+  }, [updatePosts, id, getUserPosts]);
+  console.log(posts);
   return (
     <div className='flex-column justify-center mt3'>
       <Profile userExample={user} />
       <div className='posts'>
         {posts.map((post, index) => (
-            user.id === post.author.id && (
-              <Post key={index} user={user} post={post} setUpdatePosts={setUpdatePosts} />
-            )
+          <Post
+            key={index}
+            user={user}
+            post={post}
+            setUpdatePosts={setUpdatePosts}
+          />
         ))}
       </div>
     </div>

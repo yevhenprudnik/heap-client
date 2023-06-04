@@ -5,6 +5,7 @@ import ProfileSettingsModal from './profileSettingsModal/profileSettingsModal';
 import { ReactComponent as Add } from '../../svg/add.svg';
 import { ReactComponent as Story } from '../../svg/story.svg';
 import { ReactComponent as Settings } from '../../svg/settings.svg';
+import { Link } from 'react-router-dom';
 import '../../App.css';
 import './Profile.css';
 
@@ -14,7 +15,7 @@ function Profile({ user }) {
   const [isFollowing, setIsFollowing] = useState(false);
 
   const currentUser = {
-    id: 0,
+    id: 1,
     email: 'andrej.shmalenko@gmail.com',
     username: 'Xameon',
     avatar: '',
@@ -34,6 +35,7 @@ function Profile({ user }) {
           />
         </div>
         <div className='data'>
+          <Link to={'/users:1'}>Пользователь</Link>
           <div className='username'>{user.username}</div>
           <div className='user-attributes mv3'>
             <div className='mh2'>54 followers</div>
