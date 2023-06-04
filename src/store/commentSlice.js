@@ -9,7 +9,6 @@ export const fetchGetPostComments = createAsyncThunk(
         params: { postId: id },
       });
 
-      console.log({ data: response.data, id });
       if (response.statusText !== 'OK') {
         throw new Error();
       }

@@ -9,17 +9,17 @@ import PostsPage from './pages/Posts/PostsPage';
 import ProfilePage from './pages/Profile/ProfilePage';
 import { api } from './api/api';
 import './App.css';
-import { fetchUser } from './store/userSlice';
+import { fetchIdUser, fetchUser } from './store/userSlice';
 
-function App({ getUser, user }) {
+function App({ getUserId, userId, user, getUser }) {
   const [isAuthorized, setIsAuthorized] = useState(false);
 
   useEffect(() => {
     const loadUser = async () => {
       try {
         const response = await api.get('auth');
-        await getUser();
-
+        await getUserId();
+        await getUser(response.data.id);
         if (response.statusText === 'OK') {
           setIsAuthorized(true);
         }
@@ -53,7 +53,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getUser: () => dispatch(fetchUser()),
+    getUserId: () => dispatch(fetchIdUser()),
+    getUser: id => dispatch(fetchUser(id)),
   };
 }
 

@@ -2,8 +2,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from '../api/api';
 
 export const fetchPosts = createAsyncThunk(
-  'post/fetchUserPosts',
-  async function (id, { getState, rejectWithValue }) {
+  'post/fetchPosts',
+  async function (id, { rejectWithValue }) {
     try {
       const response = await api.get('post/');
 
@@ -41,7 +41,6 @@ export const fetchCreatePost = createAsyncThunk(
   'post/fetchCreatePosts',
   async function (payload, { getState, rejectWithValue }) {
     try {
-      console.log(payload);
       const response = await api.post('post/', {
         url: payload.imgUrl,
         content: payload.content,
