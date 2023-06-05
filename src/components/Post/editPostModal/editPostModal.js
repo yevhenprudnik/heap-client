@@ -1,10 +1,7 @@
 import './editPostModal.css';
-import { useState, useEffect   } from 'react';
+import { useState, useEffect } from 'react';
 
-export default function EditPost({isActive, setIsActive}) {
-
-  console.log(setIsActive);
-  
+export default function EditPost({ isActive, setIsActive }) {
   const [isScrollLocked, setIsScrollLocked] = useState(true);
 
   useEffect(() => {
@@ -32,16 +29,16 @@ export default function EditPost({isActive, setIsActive}) {
     >
       <div
         className={isActive ? 'editPostModal active' : 'editPostModal'}
-        onClick={(e) => e.stopPropagation()}
+        onClick={e => e.stopPropagation()}
       >
-        <div className='flex-ns flex-column w-100 h-100 justify-center items-center'>
+        <div className="flex-ns flex-column w-100 h-100 justify-center items-center">
           <div>New Image</div>
           <div>
-            <input type='text' />
+            <input type="text" />
           </div>
           <div>New Content</div>
           <div>
-            <input type='text' />
+            <input type="text" />
           </div>
           <div>
             <button>Enter</button>

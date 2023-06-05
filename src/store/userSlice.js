@@ -150,8 +150,6 @@ const userSlice = createSlice({
     },
     [fetchIdUser.rejected]: (state, action) => {
       state.status = 'rejected';
-
-      console.log(action.payload);
       state.error = action.payload;
     },
     [fetchCurrentUser.pending]: state => {

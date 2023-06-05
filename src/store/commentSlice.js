@@ -26,7 +26,6 @@ export const fetchCommentLike = createAsyncThunk(
     try {
       const response = await api.post(`like/${id}?type=comment`);
 
-      console.log(response.data);
       if (response.status !== 200) {
         throw new Error();
       }

@@ -1,9 +1,11 @@
 import axios from 'axios';
 
+export const clientUrl = 'https://yevhenprudnik.github.io/heap-client/#/';
+
 const developURL = 'http://localhost:9000/';
 const productionURL = 'https://cold-bush-7260.fly.dev/';
 
-const baseURL = productionURL;
+export const baseURL = productionURL;
 
 export const api = axios.create({
   baseURL,
@@ -21,7 +23,6 @@ api.interceptors.response.use(
   },
   async error => {
     const originalRequest = error.config;
-    console.log(error);
 
     if (error.response.status === 401) {
       console.log('Using interceptor');

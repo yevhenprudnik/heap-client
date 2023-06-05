@@ -19,7 +19,6 @@ function PostPage({ posts, getPosts }) {
     loadPosts();
   }, [getPosts, updatePosts]);
 
-  console.log(posts);
   return (
     <div className="posts">
       {posts.map((post, index) => (

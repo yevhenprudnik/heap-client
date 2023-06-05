@@ -1,26 +1,29 @@
 import AsyncSelect from 'react-select/async';
-import { api } from '../../api/api';
+import { api, clientUrl } from '../../api/api';
 import { defaultAvatar } from '../../common/defaultAvatar';
 import './SearchUser.css';
 
 export default function SearchUser() {
-  const loadOptions = async (inputValue) => {
+  const loadOptions = async inputValue => {
     const response = await api(`/user?keyword=${inputValue}`);
     const users = response.data;
 
-    return users.map((user) => ({
+    return users.map(user => ({
       value: user?.id,
       label: (
-        <a className='black no-underline' href={'/profile/' + user?.id}>
-          <div className='flex-ns items-center justify-start fw6 f3'>
-            <div className='search-user-avatar mh2'>
+        <a
+          className="black no-underline"
+          href={`${clientUrl}profile/` + user?.id}
+        >
+          <div className="flex-ns items-center justify-start fw6 f3">
+            <div className="search-user-avatar mh2">
               <img
-                className='search-user-avatar-image'
+                className="search-user-avatar-image"
                 src={user.avatar || defaultAvatar}
                 alt={user.username}
               />
             </div>
-            <div className='mh2'>{user.username}</div>
+            <div className="mh2">{user.username}</div>
           </div>
         </a>
       ),
@@ -28,11 +31,11 @@ export default function SearchUser() {
   };
 
   const customStyles = {
-    control: (provided) => ({
+    control: provided => ({
       ...provided,
       minWidth: '490px',
     }),
-    menu: (provided) => ({
+    menu: provided => ({
       ...provided,
       minWidth: '490px',
     }),
@@ -41,9 +44,9 @@ export default function SearchUser() {
   return (
     <AsyncSelect
       styles={customStyles}
-      className='new-collection-selector w-25'
+      className="new-collection-selector w-25"
       loadOptions={loadOptions}
-      placeholder='Search users...'
+      placeholder="Search users..."
       maxMenuHeight={'80vh'}
     />
   );

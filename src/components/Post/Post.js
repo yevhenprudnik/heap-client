@@ -10,7 +10,8 @@ import { ReactComponent as Edit } from '../../svg/edit.svg';
 import { fetchPostLikePost, fetchGetLikePost } from '../../store/postSlice';
 import { ReactComponent as Delete } from '../../svg/delete.svg';
 import EditPost from './editPostModal/editPostModal';
-import {defaultAvatar} from '../../common/defaultAvatar'
+import { defaultAvatar } from '../../common/defaultAvatar';
+import { clientUrl } from '../../api/api';
 
 function Post({ currentUser, post, deletePost, setUpdatePosts, likePost }) {
   const [commentsModalIsActive, setCommentsModalIsActive] = useState(false);
@@ -27,47 +28,47 @@ function Post({ currentUser, post, deletePost, setUpdatePosts, likePost }) {
   };
 
   const handleLikePost = async () => {
-    const result = await likePost(post.id);
-    console.log(result);
+    likePost(post.id);
+
     setUpdatePosts(true);
   };
 
   return (
-    <div className='post'>
-      <div className='flex-ns justify-between'>
-        <div className='flex-ns items-center mb3'>
-          <a href={`/profile/${post.author.id}`}>
-            <div className='author-avatar ml2'>
+    <div className="post">
+      <div className="flex-ns justify-between">
+        <div className="flex-ns items-center mb3">
+          <a href={`${clientUrl}profile/${post.author.id}`}>
+            <div className="author-avatar ml2">
               <img
-                className='author-avatar-image'
+                className="author-avatar-image"
                 src={post.author.avatar || defaultAvatar}
                 alt={post.author.username}
               />
             </div>
           </a>
-          <a className='author-username' href={`/profile/${post.author.id}`}>
+          <a className="author-username" href={`/profile/${post.author.id}`}>
             {post.author.username}
           </a>
         </div>
-        <div className='flex-ns items-center mb3 mr2'>
+        <div className="flex-ns items-center mb3 mr2">
           {post.createdAt === post.updatedAt ? (
-            <p className='time-label'>
+            <p className="time-label">
               {new Date(post.createdAt).toLocaleString()}
             </p>
           ) : (
-            <p className='time-label'>
+            <p className="time-label">
               Updated {new Date(post.updatedAt).toLocaleString()}
             </p>
           )}
         </div>
       </div>
       {!!post.url && (
-        <div className='mb2'>
-          <img className='content-image' src={post.url} alt='' />
+        <div className="mb2">
+          <img className="content-image" src={post.url} alt="" />
         </div>
       )}
       {!!post.content && (
-        <div className='content-text mh2 mb2'>{post.content}</div>
+        <div className="content-text mh2 mb2">{post.content}</div>
       )}
       {commentsModalIsActive && (
         <CommentsModal
@@ -83,19 +84,19 @@ function Post({ currentUser, post, deletePost, setUpdatePosts, likePost }) {
           setIsActive={setEditPostModalIsActive}
         />
       )}
-      <div className='flex-ns justify-between mh2 mt3'>
-        <div className='flex-ns items-center'>
+      <div className="flex-ns justify-between mh2 mt3">
+        <div className="flex-ns items-center">
           <Like
             className={!isLiked ? `like mr1` : `liked mr1`}
-            aria-label='Like'
-            title='Like'
+            aria-label="Like"
+            title="Like"
             onClick={() => {
               handleLikePost();
               setIsLiked(!isLiked);
             }}
           />
           <Comment
-            className='comment ml1'
+            className="comment ml1"
             title="Comment's"
             onClick={() => {
               setCommentsModalIsActive(true);
@@ -103,22 +104,22 @@ function Post({ currentUser, post, deletePost, setUpdatePosts, likePost }) {
           />
         </div>
         {postManagement && (
-          <div className='flex-ns'>
+          <div className="flex-ns">
             <Edit
-              className='edit mr1'
-              title='Edit post'
+              className="edit mr1"
+              title="Edit post"
               onClick={() => setEditPostModalIsActive(true)}
             />
             <Delete
-              className='delete ml1'
-              title='Delete post'
+              className="delete ml1"
+              title="Delete post"
               onClick={() => handleDeletePost()}
             />
           </div>
         )}
       </div>
-      <div className='mt3 ml2'>Likes: {post.likesCount}</div>
-      <div className='mt1 ml2'>Comments: {post.commentsCount}</div>
+      <div className="mt3 ml2">Likes: {post.likesCount}</div>
+      <div className="mt1 ml2">Comments: {post.commentsCount}</div>
     </div>
   );
 }
@@ -132,9 +133,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getPostLikes: (id) => dispatch(fetchGetLikePost(id)),
-    likePost: (id) => dispatch(fetchPostLikePost(id)),
-    deletePost: (id) => dispatch(fetchDeletePost(id)),
+    getPostLikes: id => dispatch(fetchGetLikePost(id)),
+    likePost: id => dispatch(fetchPostLikePost(id)),
+    deletePost: id => dispatch(fetchDeletePost(id)),
   };
 }
 
