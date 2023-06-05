@@ -56,11 +56,11 @@ function Post({ currentUser, post, deletePost, setUpdatePosts, likePost }) {
         <div className="flex-ns items-center mb3 mr2">
           {post.createdAt === post.updatedAt ? (
             <p className="time-label">
-              {new Date(post.createdAt).toLocaleString()}
+              {new Date(post.created_at).toLocaleString()}
             </p>
           ) : (
             <p className="time-label">
-              Updated {new Date(post.updatedAt).toLocaleString()}
+              Updated {new Date(post.updated_at).toLocaleString()}
             </p>
           )}
         </div>
