@@ -1,48 +1,62 @@
-import { Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { Routes, Route } from 'react-router-dom';
 import NavBar from './components/Navigation/Navigation';
 import HomePage from './pages/Home/HomePage';
 import RegisterPage from './pages/Auth/Register/RegisterPage';
 import LoginPage from './pages/Auth/Login/LoginPage';
 import PostsPage from './pages/Posts/PostsPage';
 import ProfilePage from './pages/Profile/ProfilePage';
+import { api } from './api/api';
 import './App.css';
+import { fetchCurrentUser } from './store/userSlice';
+import UsersPage from './pages/Users/UsersPage';
 
-function App() {
+function App({ getCurrentUser, currentUser, targetUser }) {
   const [isAuthorized, setIsAuthorized] = useState(false);
 
   useEffect(() => {
     const loadUser = async () => {
-      const accessToken = localStorage.getItem('accessToken');
-      if (!accessToken) {
-        return;
-      }
-      const response = await fetch('http://localhost:3000/auth', {
-        headers: {
-          authorization: `Bearer ${accessToken}`,
-        },
-      });
-
-      if (response.ok) {
-        setIsAuthorized(true);
+      try {
+        const response = await api.get('auth');
+        await getCurrentUser(response.data.id);
+        if (response.status === 200) {
+          setIsAuthorized(true);
+        }
+      } catch {
+        setIsAuthorized(false);
       }
     };
-    
+
     loadUser();
-  }, []);
+  }, [getCurrentUser]);
 
   return (
     <>
       <NavBar isAuthorized={isAuthorized} />
       <Routes>
-        <Route path='/' element={<HomePage />}></Route>
-        <Route path='/posts' element={<PostsPage />}></Route>
-        <Route path='/register' element={<RegisterPage />}></Route>
-        <Route path='/login' element={<LoginPage />}></Route>
-        <Route path='/profile' element={<ProfilePage />}></Route>
+        <Route path="/" element={<HomePage />}></Route>
+        <Route path="/posts" element={<PostsPage />}></Route>
+        <Route path="/register" element={<RegisterPage />}></Route>
+        <Route path="/login" element={<LoginPage />}></Route>
+        <Route path="/profile/:id" element={<ProfilePage />}></Route>
+        <Route path="/users" element={<UsersPage />}></Route>
       </Routes>
     </>
   );
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    currentUser: state.userSlice.currentUser,
+    targetUser: state.userSlice.targetUser,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    getCurrentUser: id => dispatch(fetchCurrentUser(id)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

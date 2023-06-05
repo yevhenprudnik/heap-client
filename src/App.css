@@ -1,11 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
+html {
+  font-family: Montserrat;
+}
+
 header {
   background-color: white;
   border-width: 0;
   border-bottom: 1px;
   border-style: solid;
   border-color: lightgray;
+}
+
+li {
+  list-style-type: none;
+  word-wrap: break-word;
 }
 
 .fullPage {
@@ -28,4 +37,38 @@ header {
 
 .fontMontserrat {
   font-family: 'Montserrat', sans-serif;
+}
+
+.w50 {
+  width: 50vw;
+}
+
+.w50p {
+  width: 50%;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: white;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: lightgray;
+  border-radius: 5px;
+}
+
+::-moz-scrollbar {
+  width: 10px;
+}
+
+::-moz-scrollbar-track {
+  background-color: white;
+}
+
+::-moz-scrollbar-thumb {
+  background-color: lightgray;
+  border-radius: 5px;
 }

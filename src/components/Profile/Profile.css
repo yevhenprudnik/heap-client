@@ -1,0 +1,91 @@
+.profile {
+  width: 50%;
+  min-width: 480px;
+  min-height: 300px;
+  border: 3px solid black;
+  border-radius: 40px;
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px;
+  border: 3px solid black;
+  min-width: 300px;
+  min-height: 300px;
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 10%;
+}
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 15px;
+  width: 100%;
+}
+
+.username {
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+.options {
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
+  min-width: 480px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.options-svg {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: black;
+  stroke: black;
+  transition: 0.2s linear;
+}
+
+.options-svg:hover {
+  color: gray;
+  stroke: gray;
+}
+
+.user-attributes {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  font-size: 1.25rem;
+}
+
+@media (max-width: 1200px) {
+  .avatar {
+    min-width: 200px;
+    min-height: 200px;
+    width: 200px;
+    height: 200px;
+  }
+  .profile {
+    min-height: 200px;
+  }
+  .username {
+    font-size: 2.25rem;
+  }
+  .user-attributes {
+    font-size: 0.9rem;
+  }
+}

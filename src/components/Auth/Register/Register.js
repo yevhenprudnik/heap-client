@@ -1,3 +1,4 @@
+import { api } from '../../../api/api';
 import { Link } from 'react-router-dom';
 import '../Auth.css';
 import { buttonStyle } from '../styles';
@@ -12,31 +13,24 @@ export default function Register() {
 
   const handleRegister = async () => {
     if (password !== confirmPassword) {
-      alert('не підходять сука паролі');
+      alert('Вибачте, але паролі сука не підходять!');
       return;
     }
 
     try {
-      const response = await fetch('http://localhost:3000/auth/sign-up', {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, email, password }),
-      });
+      const response = await api.post(
+        'auth/sign-up',
+        { username, email, password },
+      );
 
-      if (!response.ok) {
-        const error = await response.json();
+      const { data } = response;
 
-        throw new Error(error.message);
-      }
-
-      const data = await response.json();
       localStorage.setItem('accessToken', data.accessToken);
+      localStorage.setItem('refreshToken', data.refreshToken);
 
-      window.location.replace('/');
+      window.location.replace('/heap-client');
     } catch (e) {
-      setRegisterError(e.message);
+      setRegisterError(e.response.data.message);
     }
   };
 
