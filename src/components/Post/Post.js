@@ -46,7 +46,10 @@ function Post({ currentUser, post, deletePost, setUpdatePosts, likePost }) {
               />
             </div>
           </a>
-          <a className="author-username" href={`/profile/${post.author.id}`}>
+          <a
+            className="author-username"
+            href={`${clientUrl}profile/${post.author.id}`}
+          >
             {post.author.username}
           </a>
         </div>
