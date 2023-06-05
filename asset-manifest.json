@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/heap-client/static/css/main.89c3380d.css",
-    "main.js": "/heap-client/static/js/main.c13c394f.js",
-    "static/media/settings.svg": "/heap-client/static/media/settings.22c194d90121ed537711c9a683a4c75e.svg",
-    "static/media/reply.svg": "/heap-client/static/media/reply.c0a89bfc1a9e82167cab850d32e7aaf9.svg",
-    "static/media/send_comment.svg": "/heap-client/static/media/send_comment.b1e07428a35915eab3dca04721724430.svg",
-    "static/media/send_reply.svg": "/heap-client/static/media/send_reply.28f20db3f82eb152ea919796a21c357f.svg",
-    "static/media/delete.svg": "/heap-client/static/media/delete.640d440a629e5b92791f06cd5e36df8f.svg",
-    "static/media/delete_comment.svg": "/heap-client/static/media/delete_comment.cbfca9c3f9ba1bf0101e9375bf543b31.svg",
-    "static/media/like_comment.svg": "/heap-client/static/media/like_comment.f6b5ed7c93ab120fa45d25645f7f79ab.svg",
+    "main.js": "/heap-client/static/js/main.c2b2a5c7.js",
+    "static/media/settings.svg": "/heap-client/static/media/settings.26daa1da7af4ca920858e2e493feb8a3.svg",
+    "static/media/reply.svg": "/heap-client/static/media/reply.ac523fd482517a46c4b6a6d6fd41315e.svg",
+    "static/media/send_comment.svg": "/heap-client/static/media/send_comment.d9141051767e7fda0769462ad81ca245.svg",
+    "static/media/send_reply.svg": "/heap-client/static/media/send_reply.4a62a84982b30fa9fe4622cd5ad62deb.svg",
+    "static/media/delete.svg": "/heap-client/static/media/delete.ecdd5987ed6a3822c6500dbac627dad2.svg",
+    "static/media/delete_comment.svg": "/heap-client/static/media/delete_comment.61bc67a45b1b13e47a12338835af3911.svg",
     "static/media/like.svg": "/heap-client/static/media/like.337b555eac92158019d3746ac07415ef.svg",
-    "static/media/edit.svg": "/heap-client/static/media/edit.afcf2afba76c4afe400d403c7f0fe447.svg",
-    "static/media/add.svg": "/heap-client/static/media/add.8699cfb84881276ebf548073a830d3bb.svg",
-    "static/media/close_reply.svg": "/heap-client/static/media/close_reply.8b184c3211f32957cdb59917fea436ff.svg",
+    "static/media/like_comment.svg": "/heap-client/static/media/like_comment.a70dc4c5f8508b362ebe66d5ba73227f.svg",
+    "static/media/add.svg": "/heap-client/static/media/add.2e04f305efd3858b9d68f9a216f1b1d3.svg",
+    "static/media/edit.svg": "/heap-client/static/media/edit.2716c2fb2ff1e23551458e425e2d93a2.svg",
+    "static/media/close_reply.svg": "/heap-client/static/media/close_reply.6fef9bbf95302672d6000a800b546d5d.svg",
     "static/media/comment.svg": "/heap-client/static/media/comment.31ecceb75f894757abb12af798a24498.svg",
     "index.html": "/heap-client/index.html",
     "main.89c3380d.css.map": "/heap-client/static/css/main.89c3380d.css.map",
-    "main.c13c394f.js.map": "/heap-client/static/js/main.c13c394f.js.map"
+    "main.c2b2a5c7.js.map": "/heap-client/static/js/main.c2b2a5c7.js.map"
   },
   "entrypoints": [
     "static/css/main.89c3380d.css",
-    "static/js/main.c13c394f.js"
+    "static/js/main.c2b2a5c7.js"
   ]
 }
