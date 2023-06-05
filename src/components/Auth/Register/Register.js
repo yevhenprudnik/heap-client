@@ -28,7 +28,7 @@ export default function Register() {
       localStorage.setItem('accessToken', data.accessToken);
       localStorage.setItem('refreshToken', data.refreshToken);
 
-      window.location.replace('/');
+      window.location.replace('/heap-client');
     } catch (e) {
       setRegisterError(e.response.data.message);
     }
