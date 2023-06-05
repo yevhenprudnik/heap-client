@@ -97,11 +97,11 @@ function Comment({
             className="repliesToggleBtn"
             onClick={() => setRepliesIsOpen(!repliesIsOpen)}
           >
-            {!repliesIsOpen ? 'show replies' : 'hide replies'}
+            {!repliesIsOpen ? `show replies (${comment.replies.length})` : 'hide replies'}
           </button>
           <ul className={`replies-list ${repliesIsOpen && 'open'}`}>
             {comment.replies.map((reply, index) => (
-              <li key={index}>
+              <li key={index} className='pv2'>
                 <span className="fw6">{`${reply.author.username}:`}</span>
                 {` ${reply.content}`}
               </li>

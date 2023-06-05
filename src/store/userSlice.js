@@ -73,6 +73,58 @@ export const fetchTargetUser = createAsyncThunk(
   }
 );
 
+export const fetchFollowList = createAsyncThunk(
+  'user/fetchFollowList',
+  async function (searchObject, { getState, rejectWithValue }) {
+    try {
+      const { key, id } = searchObject;
+      const response = await api.get(`/follow/?${key}=${id}`);
+
+      if (response.statusText !== 'OK') {
+        throw new Error();
+      }
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchFollowUser = createAsyncThunk(
+  'user/fetchFollowUser',
+  async function (userId, { getState, rejectWithValue }) {
+    try {
+      const response = await api.post(`/follow/${userId}`);
+
+      if (response.statusText !== 'OK') {
+        throw new Error();
+      }
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchUnfollowUser = createAsyncThunk(
+  'user/fetchUnfollowUser',
+  async function (id, { getState, rejectWithValue }) {
+    try {
+      const response = await api.delete(`/follow/${id}`);
+
+      if (response.statusText !== 'OK') {
+        throw new Error();
+      }
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const userSlice = createSlice({
   name: 'userSlice',
   initialState: {
@@ -80,6 +132,7 @@ const userSlice = createSlice({
     targetUser: {},
     currentUser: {},
     posts: [],
+    followList: [],
   },
   reducers: {
     userLog(state, action) {
@@ -87,7 +140,7 @@ const userSlice = createSlice({
     },
   },
   extraReducers: {
-    [fetchIdUser.pending]: state => {
+    [fetchIdUser.pending]: (state) => {
       state.status = 'pending';
       state.error = null;
     },
@@ -102,7 +155,7 @@ const userSlice = createSlice({
       state.error = action.payload;
     },
 
-    [fetchCurrentUser.pending]: state => {
+    [fetchCurrentUser.pending]: (state) => {
       state.status = 'pending';
       state.error = null;
     },
@@ -117,7 +170,7 @@ const userSlice = createSlice({
       state.error = action.payload;
     },
 
-    [fetchTargetUser.pending]: state => {
+    [fetchTargetUser.pending]: (state) => {
       state.status = 'pending';
       state.error = null;
     },
@@ -132,7 +185,7 @@ const userSlice = createSlice({
       state.error = action.payload;
     },
 
-    [fetchPatchUser.pending]: state => {
+    [fetchPatchUser.pending]: (state) => {
       state.status = 'pending';
       state.error = null;
     },
@@ -141,6 +194,43 @@ const userSlice = createSlice({
       state.error = null;
     },
     [fetchPatchUser.rejected]: (state, action) => {
+      state.status = 'rejected';
+      state.error = action.payload;
+    },
+    [fetchFollowList.pending]: (state) => {
+      state.status = 'pending';
+      state.error = null;
+    },
+    [fetchFollowList.fulfilled]: (state, action) => {
+      state.status = 'fulfilled';
+      state.error = null;
+      state.followList = action.payload;
+    },
+    [fetchFollowList.rejected]: (state, action) => {
+      state.status = 'rejected';
+      state.error = action.payload;
+    },
+    [fetchFollowUser.pending]: (state) => {
+      state.status = 'pending';
+      state.error = null;
+    },
+    [fetchFollowUser.fulfilled]: (state, action) => {
+      state.status = 'fulfilled';
+      state.error = null;
+    },
+    [fetchFollowUser.rejected]: (state, action) => {
+      state.status = 'rejected';
+      state.error = action.payload;
+    },
+    [fetchUnfollowUser.pending]: (state) => {
+      state.status = 'pending';
+      state.error = null;
+    },
+    [fetchUnfollowUser.fulfilled]: (state, action) => {
+      state.status = 'fulfilled';
+      state.error = null;
+    },
+    [fetchUnfollowUser.rejected]: (state, action) => {
       state.status = 'rejected';
       state.error = action.payload;
     },

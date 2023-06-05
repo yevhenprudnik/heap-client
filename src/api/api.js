@@ -13,17 +13,20 @@ export const api = axios.create({
 });
 
 api.interceptors.response.use(
-  response => {
+  (response) => {
     return response;
   },
-  async error => {
+  async (error) => {
     const originalRequest = error.config;
+    console.log(error);
 
-    console.log('Using interceptor');
+    if (error.response.status === 401) {
+      console.log('Using interceptor');
 
-    await refreshSession(originalRequest);
+      await refreshSession(originalRequest);
 
-    return api.request(originalRequest);
+      return api.request(originalRequest);
+    }
   }
 );
 

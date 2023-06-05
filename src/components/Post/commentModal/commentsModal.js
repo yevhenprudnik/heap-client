@@ -63,9 +63,9 @@ function CommentsModal({
     >
       <div
         className={isActive ? 'commentsModal active' : 'commentsModal'}
-        onClick={e => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
       >
-        <div className="comments">
+        <div className='comments'>
           {comments.map((comment, index) => (
             <Comment
               key={index}
@@ -75,17 +75,17 @@ function CommentsModal({
             />
           ))}
         </div>
-        <div className="add-comment flex-ns justify-between items-center pt1">
+        <div className='add-comment flex-ns justify-between items-center pt1'>
           <textarea
-            type="text"
+            type='text'
             value={content}
-            className="comment-input f4"
-            placeholder="Your comment..."
-            onChange={e => setContent(e.target.value)}
+            className='comment-input f4'
+            placeholder='Your comment...'
+            onChange={(e) => setContent(e.target.value)}
           />
           <SendComment
-            className="comment-send"
-            title="Send comment"
+            className='comment-send'
+            title='Send comment'
             onClick={() => {
               handleCreateCommentPost();
             }}
@@ -104,8 +104,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getPostComments: id => dispatch(fetchGetPostComments(id)),
-    createCommentPost: payload => dispatch(fetchCreateCommentPost(payload)),
+    getPostComments: (id) => dispatch(fetchGetPostComments(id)),
+    createCommentPost: (payload) => dispatch(fetchCreateCommentPost(payload)),
   };
 }
 

@@ -21,6 +21,7 @@
 .repliesToggleBtn {
   max-height: 25px;
   min-height: 25px;
+  min-width: 100px;
   border: none;
   background-color: white;
   transition: 0.2s linear;

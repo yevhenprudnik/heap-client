@@ -22,7 +22,7 @@ function ProfilePage({
       await getTargetUser(id);
       await getUserPosts(id);
     };
-    if (updatePosts === true) {
+    if (updatePosts) {
       loadPosts();
       setUpdatePosts(false);
     }
@@ -33,7 +33,7 @@ function ProfilePage({
   return (
     <div className="flex-column justify-center mt3">
       <Profile />
-      <div className="posts">
+      <div className="posts pt3">
         {posts.map((post, index) => (
           <Post
             key={index}

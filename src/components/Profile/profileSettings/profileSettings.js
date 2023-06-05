@@ -5,7 +5,6 @@ import { fetchPatchUser } from '../../../store/userSlice';
 function ProfileSettings({ patchUser }) {
   const [mainMenuisActive, setMainMenuIsActive] = useState(true);
   const [usernameChangerIsActive, setUsernameChangerIsActive] = useState(false);
-  const [passwordChangerIsActive, setPasswordChangerIsActive] = useState(false);
   const [username, setUserName] = useState('');
   const [avatar, setAvatar] = useState('');
 
@@ -24,14 +23,6 @@ function ProfileSettings({ patchUser }) {
             }}
           >
             Change profile
-          </button>
-          <button
-            onClick={() => {
-              setPasswordChangerIsActive(true);
-              setMainMenuIsActive(false);
-            }}
-          >
-            Change password
           </button>
         </div>
       )}
@@ -55,29 +46,6 @@ function ProfileSettings({ patchUser }) {
               Back
             </button>
             <button onClick={() => handlePatchUser()}>Apply</button>
-          </div>
-        </div>
-      )}
-      {passwordChangerIsActive && (
-        <div className="flex-ns flex-column">
-          <div>New password</div>
-          <div>
-            <input type="password" />
-          </div>
-          <div>Confirm new password</div>
-          <div>
-            <input type="password" />
-          </div>
-          <div>
-            <button
-              onClick={() => {
-                setMainMenuIsActive(true);
-                setPasswordChangerIsActive(false);
-              }}
-            >
-              Back
-            </button>
-            <button>Apply</button>
           </div>
         </div>
       )}

@@ -1,22 +1,29 @@
 import Post from '../../components/Post/Post';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../../store/postSlice';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 function PostPage({ posts, getPosts }) {
+  const [updatePosts, setUpdatePosts] = useState(false);
+
   useEffect(() => {
     const loadPosts = async () => {
       await getPosts();
     };
 
+    if (updatePosts) {
+      loadPosts();
+      setUpdatePosts(false);
+    }
+
     loadPosts();
-  }, [getPosts]);
+  }, [getPosts, updatePosts]);
 
   console.log(posts);
   return (
     <div className="posts">
       {posts.map((post, index) => (
-        <Post key={index} post={post} />
+        <Post key={index} post={post} setUpdatePosts={setUpdatePosts} />
       ))}
     </div>
   );

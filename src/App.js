@@ -10,6 +10,7 @@ import ProfilePage from './pages/Profile/ProfilePage';
 import { api } from './api/api';
 import './App.css';
 import { fetchCurrentUser } from './store/userSlice';
+import UsersPage from './pages/Users/UsersPage';
 
 function App({ getCurrentUser, currentUser, targetUser }) {
   const [isAuthorized, setIsAuthorized] = useState(false);
@@ -39,6 +40,7 @@ function App({ getCurrentUser, currentUser, targetUser }) {
         <Route path="/register" element={<RegisterPage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/profile/:id" element={<ProfilePage />}></Route>
+        <Route path="/users" element={<UsersPage />}></Route>
       </Routes>
     </>
   );
