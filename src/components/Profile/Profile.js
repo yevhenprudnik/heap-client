@@ -59,6 +59,8 @@ function Profile({
     } else {
       await unfollow(followId);
     }
+
+    setIsFollowed(!isFollowed);
   }
 
   return (
