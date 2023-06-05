@@ -1,10 +1,12 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:9000/';
-const productionURL = 'https://cold-bush-7260.fly.dev';
+const developURL = 'http://localhost:9000/';
+const productionURL = 'https://cold-bush-7260.fly.dev/';
+
+const baseURL = productionURL;
 
 export const api = axios.create({
-  baseURL: productionURL,
+  baseURL,
   headers: {
     authorization: `Bearer ${localStorage.getItem(
       'accessToken'
@@ -33,7 +35,7 @@ api.interceptors.response.use(
 
 async function refreshSession(originalRequest) {
   try {
-    const response = await axios.get(`${productionURL}auth/refresh`, {
+    const response = await axios.get(`${baseURL}auth/refresh`, {
       headers: {
         Authorization: `Bearer accessToken ${localStorage.getItem(
           'refreshToken'
@@ -41,7 +43,7 @@ async function refreshSession(originalRequest) {
       },
     });
 
-    console.log(`Success refresh session: ${response.statusText === 'OK'}`);
+    console.log(`Success refresh session: ${response.status === 200}`);
 
     const { accessToken, refreshToken } = response.data;
 

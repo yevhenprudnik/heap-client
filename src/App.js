@@ -20,7 +20,7 @@ function App({ getCurrentUser, currentUser, targetUser }) {
       try {
         const response = await api.get('auth');
         await getCurrentUser(response.data.id);
-        if (response.statusText === 'OK') {
+        if (response.status === 200) {
           setIsAuthorized(true);
         }
       } catch {

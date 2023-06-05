@@ -9,7 +9,7 @@ export const fetchGetPostComments = createAsyncThunk(
         params: { postId: id },
       });
 
-      if (response.statusText !== 'OK') {
+      if (response.status !== 200) {
         throw new Error();
       }
 
@@ -27,7 +27,7 @@ export const fetchCommentLike = createAsyncThunk(
       const response = await api.post(`like/${id}?type=comment`);
 
       console.log(response.data);
-      if (response.statusText !== 'OK') {
+      if (response.status !== 200) {
         throw new Error();
       }
 
@@ -46,7 +46,7 @@ export const fetchCreateCommentPost = createAsyncThunk(
         content: payload.content,
       });
 
-      if (response.statusText !== 'OK') {
+      if (response.status !== 200) {
         throw new Error();
       }
 
@@ -65,7 +65,7 @@ export const fetchCreateCommentReply = createAsyncThunk(
         content: payload.content,
       });
 
-      if (response.statusText !== 'OK') {
+      if (response.status !== 200) {
         throw new Error();
       }
 
@@ -82,7 +82,7 @@ export const fetchDeleteComment = createAsyncThunk(
     try {
       const response = await api.delete(`comment/${id}`);
 
-      if (response.statusText !== 'OK') {
+      if (response.status !== 200) {
         throw new Error();
       }
 

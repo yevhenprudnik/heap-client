@@ -35,7 +35,7 @@ function Profile({
     async function checkIsFollowed() {
       if (targetUser.id && currentUser.id) {
         const response = await api.get(
-          `/follow/?authorId=${currentUser.id}&&userId=${targetUser.id}`
+          `follow/?authorId=${currentUser.id}&&userId=${targetUser.id}`
         );
         const isFollowedList = response.data;
         console.log(isFollowedList);

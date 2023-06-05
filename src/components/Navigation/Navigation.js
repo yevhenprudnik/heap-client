@@ -9,12 +9,12 @@ export const nawBarAuthLinkStyle =
 
 function NavBar({ isAuthorized, currentUser }) {
   return (
-    <div className='flex fontMontserrat rowDirection pa3 justify-between items-center bb b--light-gray'>
+    <div className="flex fontMontserrat rowDirection pa3 justify-between items-center bb b--light-gray">
       <div>
-        <Link to='/' className={nawBarMainLinkStyle}>
+        <Link to="/" className={nawBarMainLinkStyle}>
           Home
         </Link>
-        <Link to='/posts' className={nawBarMainLinkStyle}>
+        <Link to="/posts" className={nawBarMainLinkStyle}>
           Posts
         </Link>
         <Link to={`/profile/${currentUser.id}`} className={nawBarMainLinkStyle}>
@@ -39,10 +39,10 @@ function NavBar({ isAuthorized, currentUser }) {
           </button>
         ) : (
           <div>
-            <Link to='/login' className={nawBarAuthLinkStyle}>
+            <Link to="/login" className={nawBarAuthLinkStyle}>
               Login
             </Link>
-            <Link to='/register' className={nawBarAuthLinkStyle}>
+            <Link to="/register" className={nawBarAuthLinkStyle}>
               Register
             </Link>
           </div>
@@ -58,8 +58,4 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {};
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
+export default connect(mapStateToProps)(NavBar);

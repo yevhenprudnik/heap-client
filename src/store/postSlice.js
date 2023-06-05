@@ -7,7 +7,7 @@ export const fetchPosts = createAsyncThunk(
     try {
       const response = await api.get('post/');
 
-      if (response.statusText !== 'OK') {
+      if (response.status !== 200) {
         throw new Error();
       }
 
@@ -24,7 +24,7 @@ export const fetchPostLikePost = createAsyncThunk(
     try {
       const response = await api.post(`like/${id}?type=post`);
 
-      if (response.statusText !== 'OK') {
+      if (response.status !== 200) {
         throw new Error();
       }
 
@@ -41,7 +41,7 @@ export const fetchGetLikePost = createAsyncThunk(
     try {
       const response = await api.get(`like/${id}?type=post`);
 
-      if (response.statusText !== 'OK') {
+      if (response.status !== 200) {
         throw new Error();
       }
 
@@ -60,7 +60,7 @@ export const fetchUserPosts = createAsyncThunk(
         params: { authorId: id },
       });
 
-      if (response.statusText !== 'OK') {
+      if (response.status !== 200) {
         throw new Error();
       }
 
@@ -80,7 +80,7 @@ export const fetchCreatePost = createAsyncThunk(
         content: payload.content,
       });
 
-      if (response.statusText !== 'OK') {
+      if (response.status !== 200) {
         throw new Error();
       }
 
@@ -97,7 +97,7 @@ export const fetchDeletePost = createAsyncThunk(
     try {
       const response = await api.delete(`post/${id}`);
 
-      if (response.statusText !== 'OK') {
+      if (response.status !== 200) {
         throw new Error();
       }
 
