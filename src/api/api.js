@@ -1,9 +1,10 @@
 import axios from 'axios';
 
 const baseURL = 'http://localhost:9000/';
+const productionURL = 'https://cold-bush-7260.fly.dev';
 
 export const api = axios.create({
-  baseURL,
+  baseURL: productionURL,
   headers: {
     authorization: `Bearer ${localStorage.getItem(
       'accessToken'
@@ -13,10 +14,10 @@ export const api = axios.create({
 });
 
 api.interceptors.response.use(
-  (response) => {
+  response => {
     return response;
   },
-  async (error) => {
+  async error => {
     const originalRequest = error.config;
     console.log(error);
 
@@ -32,7 +33,7 @@ api.interceptors.response.use(
 
 async function refreshSession(originalRequest) {
   try {
-    const response = await axios.get(`${baseURL}auth/refresh`, {
+    const response = await axios.get(`${productionURL}auth/refresh`, {
       headers: {
         Authorization: `Bearer accessToken ${localStorage.getItem(
           'refreshToken'
