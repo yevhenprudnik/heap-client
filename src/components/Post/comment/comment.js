@@ -22,7 +22,7 @@ function Comment({
 }) {
   const [repliesIsOpen, setRepliesIsOpen] = useState(false);
   const [replyFieldIsOpen, setReplyFieldIsOpen] = useState(false);
-  const [isLikedComment, setIsLikedComment] = useState(false);
+  const [isLikedComment, setIsLikedComment] = useState(comment.isLiked);
 
   const [content, setContent] = useState('');
 
@@ -69,6 +69,7 @@ function Comment({
               setIsLikedComment(!isLikedComment);
             }}
           />
+          {comment.likesCount}
           {user.id === comment.author.id && (
             <DeleteComment
               className="delete-comment ph1"

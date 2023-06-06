@@ -1,8 +1,17 @@
 import './editPostModal.css';
 import { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { fetchPatchPost } from '../../../store/postSlice';
 
-export default function EditPost({ isActive, setIsActive }) {
+function EditPost({ isActive, setIsActive, patchPost, post }) {
   const [isScrollLocked, setIsScrollLocked] = useState(true);
+  const [url, setUrl] = useState();
+  const [content, setContent] = useState();
+
+  const handlePatchPost = async () => {
+    await patchPost({ id: post.id, url, content });
+    window.location.reload();
+  };
 
   useEffect(() => {
     if (isScrollLocked) {
@@ -34,17 +43,29 @@ export default function EditPost({ isActive, setIsActive }) {
         <div className="flex-ns flex-column w-100 h-100 justify-center items-center">
           <div>New Image</div>
           <div>
-            <input type="text" />
+            <input type="text" onChange={e => setUrl(e.target.value)} />
           </div>
           <div>New Content</div>
           <div>
-            <input type="text" />
+            <input type="text" onChange={e => setContent(e.target.value)} />
           </div>
           <div>
-            <button>Enter</button>
+            <button onClick={() => handlePatchPost()}>Enter</button>
           </div>
         </div>
       </div>
     </div>
   );
 }
+
+function mapStateToProps(state) {
+  return {};
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    patchPost: payload => dispatch(fetchPatchPost(payload)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditPost);

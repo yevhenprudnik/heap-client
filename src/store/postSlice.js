@@ -91,6 +91,26 @@ export const fetchCreatePost = createAsyncThunk(
   }
 );
 
+export const fetchPatchPost = createAsyncThunk(
+  'post/fetchPatchPost',
+  async function (payload, { getState, rejectWithValue }) {
+    try {
+      const response = await api.patch(`post/${payload.id}`, {
+        url: payload.url,
+        content: payload.content,
+      });
+
+      if (response.status !== 200) {
+        throw new Error();
+      }
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const fetchDeletePost = createAsyncThunk(
   'post/fetchDeletePost',
   async function (id, { getState, rejectWithValue }) {

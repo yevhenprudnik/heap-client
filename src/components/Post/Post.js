@@ -83,6 +83,7 @@ function Post({ currentUser, post, deletePost, setUpdatePosts, likePost }) {
       )}
       {editPostModalIsActive && (
         <EditPost
+          post={post}
           isActive={editPostModalIsActive}
           setIsActive={setEditPostModalIsActive}
         />

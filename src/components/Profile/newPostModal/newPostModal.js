@@ -58,7 +58,7 @@ function NewPostModal({ isActive, setIsActive, createPost }) {
             }}
           />
         </div>
-        <img src={imgUrl} />
+        <img src={imgUrl} alt="" />
         <div>Content</div>
         <div>
           <textarea onChange={e => setContent(e.target.value)} />

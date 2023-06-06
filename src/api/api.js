@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const clientUrl = 'https://yevhenprudnik.github.io/heap-client/#/';
 
-const developURL = 'http://localhost:9000/';
+// const developURL = 'http://localhost:9000/';
 const productionURL = 'https://cold-bush-7260.fly.dev/';
 
 export const baseURL = productionURL;
