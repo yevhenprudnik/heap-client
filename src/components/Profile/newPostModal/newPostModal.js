@@ -3,13 +3,29 @@ import './newPostModal.css';
 import { fetchCreatePost } from '../../../store/postSlice';
 import { connect } from 'react-redux';
 import { useState } from 'react';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { storage } from '../../../firebase/firebase';
+import { v4 } from 'uuid';
 
 function NewPostModal({ isActive, setIsActive, createPost }) {
   const [content, setContent] = useState('');
-  const [imgUrl, setImgUrl] = useState('');
+  const [imgUrl, setImgUrl] = useState(null);
+
+  const uploadFile = async (file) => {
+    if (file === null) return;
+
+    const imageRef = ref(storage, `images/${file.name + v4()}`);
+
+    const snapshot = await uploadBytes(imageRef, file);
+
+    const url = await getDownloadURL(snapshot.ref);
+
+    setImgUrl(url);
+  };
 
   const pushPost = async () => {
     await createPost({ content, imgUrl });
+    window.location.reload();
   };
 
   return (
@@ -23,19 +39,24 @@ function NewPostModal({ isActive, setIsActive, createPost }) {
         className={isActive ? 'newPostModal active' : 'newPostModal'}
         onClick={(e) => e.stopPropagation()}
       >
-        <div>Image URL</div>
-        <div>
-          <input type='text' onChange={(e) => setImgUrl(e.target.value)} />
+        <div className='mv5'>
+          {/* <input type='text' onChange={(e) => setImgUrl(e.target.value)} /> */}
+          <input
+            type='file'
+            onChange={(event) => {
+              uploadFile(event.target.files[0]);
+            }}
+          />
         </div>
+        <img src={imgUrl} />
         <div>Content</div>
         <div>
           <textarea onChange={(e) => setContent(e.target.value)} />
         </div>
         <div>
           <button
-            onClick={() => {
-              pushPost();
-              window.location.reload();
+            onClick={async () => {
+              await pushPost();
             }}
           >
             Send
