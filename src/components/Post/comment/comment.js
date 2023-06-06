@@ -36,8 +36,9 @@ function Comment({
     setUpdateComments(true);
   };
 
-  const handleDeleteComment = async () => {
-    await deleteComment(comment.id);
+  const handleDeleteComment = async (id = comment.id) => {
+    await deleteComment(id);
+
     setUpdateComments(true);
   };
 
@@ -97,13 +98,22 @@ function Comment({
             className="repliesToggleBtn"
             onClick={() => setRepliesIsOpen(!repliesIsOpen)}
           >
-            {!repliesIsOpen ? `show replies (${comment.replies.length})` : 'hide replies'}
+            {!repliesIsOpen
+              ? `show replies (${comment.replies.length})`
+              : 'hide replies'}
           </button>
           <ul className={`replies-list ${repliesIsOpen && 'open'}`}>
             {comment.replies.map((reply, index) => (
-              <li key={index} className='pv2'>
+              <li key={index} className="pv2">
                 <span className="fw6">{`${reply.author.username}:`}</span>
                 {` ${reply.content}`}
+                {user.id === reply.author.id && (
+                  <DeleteComment
+                    className="delete-comment ph1"
+                    title="Delete comment"
+                    onClick={() => handleDeleteComment(reply.id)}
+                  />
+                )}
               </li>
             ))}
           </ul>
