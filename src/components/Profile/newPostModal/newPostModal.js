@@ -6,12 +6,15 @@ import { useState } from 'react';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from '../../../firebase/firebase';
 import { v4 } from 'uuid';
+import LoaderModal from '../../LoaderModal/LoaderModal';
+import Loader from '../../LoaderModal/Loader';
 
 function NewPostModal({ isActive, setIsActive, createPost }) {
   const [content, setContent] = useState('');
   const [imgUrl, setImgUrl] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const uploadFile = async (file) => {
+  const uploadFile = async file => {
     if (file === null) return;
 
     const imageRef = ref(storage, `images/${file.name + v4()}`);
@@ -24,7 +27,9 @@ function NewPostModal({ isActive, setIsActive, createPost }) {
   };
 
   const pushPost = async () => {
+    setIsLoading(true);
     await createPost({ content, imgUrl });
+    setIsLoading(false);
     window.location.reload();
   };
 
@@ -35,15 +40,20 @@ function NewPostModal({ isActive, setIsActive, createPost }) {
         setIsActive(false);
       }}
     >
+      {isLoading && (
+        <LoaderModal>
+          <Loader />
+        </LoaderModal>
+      )}
       <div
         className={isActive ? 'newPostModal active' : 'newPostModal'}
-        onClick={(e) => e.stopPropagation()}
+        onClick={e => e.stopPropagation()}
       >
-        <div className='mv5'>
+        <div className="mv5">
           {/* <input type='text' onChange={(e) => setImgUrl(e.target.value)} /> */}
           <input
-            type='file'
-            onChange={(event) => {
+            type="file"
+            onChange={event => {
               uploadFile(event.target.files[0]);
             }}
           />
@@ -51,7 +61,7 @@ function NewPostModal({ isActive, setIsActive, createPost }) {
         <img src={imgUrl} />
         <div>Content</div>
         <div>
-          <textarea onChange={(e) => setContent(e.target.value)} />
+          <textarea onChange={e => setContent(e.target.value)} />
         </div>
         <div>
           <button
@@ -73,7 +83,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createPost: (payload) => dispatch(fetchCreatePost(payload)),
+    createPost: payload => dispatch(fetchCreatePost(payload)),
   };
 }
 
