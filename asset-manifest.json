@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/heap-client/static/css/main.c56bbb5c.css",
-    "main.js": "/heap-client/static/js/main.4409b489.js",
+    "main.js": "/heap-client/static/js/main.b58fafa2.js",
     "static/media/settings.svg": "/heap-client/static/media/settings.26daa1da7af4ca920858e2e493feb8a3.svg",
     "static/media/reply.svg": "/heap-client/static/media/reply.ac523fd482517a46c4b6a6d6fd41315e.svg",
     "static/media/home.svg": "/heap-client/static/media/home.a89d6439261eb96bfa9012da0f88269e.svg",
@@ -26,10 +26,10 @@
     "static/media/comment.svg": "/heap-client/static/media/comment.31ecceb75f894757abb12af798a24498.svg",
     "index.html": "/heap-client/index.html",
     "main.c56bbb5c.css.map": "/heap-client/static/css/main.c56bbb5c.css.map",
-    "main.4409b489.js.map": "/heap-client/static/js/main.4409b489.js.map"
+    "main.b58fafa2.js.map": "/heap-client/static/js/main.b58fafa2.js.map"
   },
   "entrypoints": [
     "static/css/main.c56bbb5c.css",
-    "static/js/main.4409b489.js"
+    "static/js/main.b58fafa2.js"
   ]
 }
