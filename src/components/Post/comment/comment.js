@@ -22,12 +22,13 @@ function Comment({
 }) {
   const [repliesIsOpen, setRepliesIsOpen] = useState(false);
   const [replyFieldIsOpen, setReplyFieldIsOpen] = useState(false);
-  const [isLikedComment, setIsLikedComment] = useState(false);
+  const [isLikedComment, setIsLikedComment] = useState(comment.isLiked);
 
   const [content, setContent] = useState('');
 
   const handleCreateCommentReply = async () => {
     await createCommentReply({ content, id: comment.id });
+    setContent('');
     setUpdateComments(true);
   };
 
@@ -43,59 +44,64 @@ function Comment({
   };
 
   return (
-    <div className="comment-component pv3">
-      <div className="comment-content">
-        <span className="fw6">{comment.author.username}</span>
+    <div className='comment-component pv3'>
+      <div className='comment-content'>
+        <span className='fw6'>{comment.author.username}</span>
         {`: ${comment.content}`}
       </div>
-      <div className="flex-ns justify-between">
+      <div className='flex-ns justify-between'>
         <div
-          className="replyBtn"
+          className='replyBtn'
           onClick={() => setReplyFieldIsOpen(!replyFieldIsOpen)}
         >
           {replyFieldIsOpen ? <CloseReply /> : <Reply />}
-          <div className="reply-label">
+          <div className='reply-label'>
             {!replyFieldIsOpen ? 'reply' : 'close'}
           </div>
         </div>
-        <div>
-          <LikeComment
-            className={
-              !isLikedComment ? 'like-comment mh2' : 'liked-comment ph2'
-            }
-            title="Like comment"
-            onClick={() => {
-              handleLikeComment();
-              setIsLikedComment(!isLikedComment);
-            }}
-          />
-          {user.id === comment.author.id && (
-            <DeleteComment
-              className="delete-comment ph1"
-              title="Delete comment"
-              onClick={() => handleDeleteComment()}
+        <div className='flex-ns items-center'>
+          <div>{comment.likesCount}</div>
+          <div>
+            <LikeComment
+              className={
+                !isLikedComment ? 'like-comment mh2' : 'liked-comment ph2'
+              }
+              title='Like comment'
+              onClick={() => {
+                handleLikeComment();
+                setIsLikedComment(!isLikedComment);
+              }}
             />
-          )}
+          </div>
+          <div className='delete-comment'>
+            {user.id === comment.author.id && (
+              <DeleteComment
+                title='Delete comment'
+                onClick={() => handleDeleteComment()}
+              />
+            )}
+          </div>
         </div>
       </div>
       {replyFieldIsOpen && (
-        <div className="flex-ns items-center justify-between">
+        <div className='flex-ns items-center justify-between'>
           <textarea
-            className="reply-area"
-            placeholder="Reply..."
-            onChange={e => setContent(e.target.value)}
+            className='reply-area'
+            placeholder='Reply...'
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
           />
           <SendReply
-            className="send-reply-btn"
-            title="Send reply"
+            className={content.trim().length ? 'send-reply-btn' : 'send-reply-btn disabled'}
+            title='Send reply'
             onClick={() => handleCreateCommentReply()}
           />
         </div>
       )}
       {comment.replies.length > 0 && (
-        <div className="flex-ns">
+        <div className='flex-ns'>
           <button
-            className="repliesToggleBtn"
+            className='repliesToggleBtn'
             onClick={() => setRepliesIsOpen(!repliesIsOpen)}
           >
             {!repliesIsOpen
@@ -104,16 +110,23 @@ function Comment({
           </button>
           <ul className={`replies-list ${repliesIsOpen && 'open'}`}>
             {comment.replies.map((reply, index) => (
-              <li key={index} className="pv2">
-                <span className="fw6">{`${reply.author.username}:`}</span>
-                {` ${reply.content}`}
-                {user.id === reply.author.id && (
-                  <DeleteComment
-                    className="delete-comment ph1"
-                    title="Delete comment"
-                    onClick={() => handleDeleteComment(reply.id)}
-                  />
-                )}
+              <li
+                key={index}
+                className='pv2 flex-ns items-center justify-between'
+              >
+                <div className='reply-content'>
+                  <span className='fw6'>{`${reply.author.username}:`}</span>
+                  {` ${reply.content}`}
+                </div>
+                <div className='reply-delete-btn'>
+                  {user.id === reply.author.id && (
+                    <DeleteComment
+                      className='delete-comment ph1'
+                      title='Delete reply'
+                      onClick={() => handleDeleteComment(reply.id)}
+                    />
+                  )}
+                </div>
               </li>
             ))}
           </ul>
@@ -129,9 +142,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    likeComment: id => dispatch(fetchCommentLike(id)),
-    createCommentReply: payload => dispatch(fetchCreateCommentReply(payload)),
-    deleteComment: id => dispatch(fetchDeleteComment(id)),
+    likeComment: (id) => dispatch(fetchCommentLike(id)),
+    createCommentReply: (payload) => dispatch(fetchCreateCommentReply(payload)),
+    deleteComment: (id) => dispatch(fetchDeleteComment(id)),
   };
 }
 

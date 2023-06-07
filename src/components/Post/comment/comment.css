@@ -109,8 +109,17 @@
   transition: 0.2s linear;
 }
 
+.send-reply-btn.disabled {
+  pointer-events: none;
+  opacity: 0.2;
+}
+
 .send-reply-btn:hover {
   fill: black;
+}
+
+.reply-content {
+  width: 90%;
 }
 
 @media (max-width: 1200px) {

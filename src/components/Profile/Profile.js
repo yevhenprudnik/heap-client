@@ -5,7 +5,6 @@ import NewPostModal from './newPostModal/newPostModal';
 import ProfileSettingsModal from './profileSettingsModal/profileSettingsModal';
 import UsersListModal from './usersListModal/usersListModal';
 import { ReactComponent as Add } from '../../svg/add.svg';
-// import { ReactComponent as Story } from '../../svg/story.svg';
 import { ReactComponent as Settings } from '../../svg/settings.svg';
 import { defaultAvatar } from '../../common/defaultAvatar';
 import '../../App.css';
@@ -64,17 +63,23 @@ function Profile({
   }
 
   return (
-    <div className="flex-ns flex-column items-center">
-      <div className="flex-ns profile">
-        <div className="avatar">
+    <div className='flex-ns flex-column items-center'>
+      <div className='flex-ns profile'>
+        <div className='avatar'>
           <img
             src={targetUser.avatar || defaultAvatar}
-            alt=""
-            className="avatar-image"
+            alt=''
+            className='avatar-image'
           />
         </div>
-        <div className="data">
-          <div className="username">{targetUser.username}</div>
+        <div className='data flex-ns flex-column justify-around'>
+          <div
+            className={
+              targetUser?.username?.length <= 15 ? 'username' : 'username long'
+            }
+          >
+            {targetUser.username}
+          </div>
           {usersListIsActive && (
             <UsersListModal
               isActive={usersListIsActive}
@@ -83,52 +88,50 @@ function Profile({
               listArg={userListArg}
             />
           )}
-          <div className="user-attributes mv3">
+          <div className='user-attributes'>
             <div
-              className="mh2 tc pointer"
+              className='mh2 tc pointer'
               onClick={() => openUsersList('userId')}
             >{`${targetUser.followersCount} followers`}</div>
             <div
-              className="mh2 tc pointer"
+              className='mh2 tc pointer'
               onClick={() => openUsersList('authorId')}
             >{`${targetUser.followingsCount} followings`}</div>
-            <div className="mh2 tc">{`${targetUser.postsCount} posts`}</div>
+            <div className='mh2 tc'>{`${targetUser.postsCount} posts`}</div>
           </div>
-          {currentUser.id !== targetUser.id && (
-            <div className="w-100 flex-ns justify-center items-center">
-              <button className="w-100" onClick={() => handleFollow()}>
-                {isFollowed ? 'unfollow' : 'follow'}
+          <div className='w-100 flex-ns justify-center'>
+            {currentUser.id !== targetUser.id && (
+              <button
+                className={isFollowed ? 'unfollow-btn' : 'follow-btn'}
+                onClick={() => handleFollow()}
+              >
+                {isFollowed ? 'Unfollow' : 'Follow'}
               </button>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
       {currentUser.id === targetUser.id && (
-        <div className="options">
+        <div className='options'>
           <NewPostModal
             isActive={newPostIsActive}
             setIsActive={setNewPostIsActive}
           />
-          <div className="options-svg">
+          <div className='options-svg'>
             <Add onClick={() => setNewPostIsActive(!newPostIsActive)} />
-            <div className="fw6 f4">Add post</div>
+            <div className='fw6 f4'>Add post</div>
           </div>
-
-          {/* <div className='options-svg'>
-            <Story />
-            <div className='fw6 f4'>New story</div>
-          </div> */}
           <ProfileSettingsModal
             isActive={profileSettingsIsActive}
             setIsActive={setProfileSettingsIsActive}
           />
-          <div className="options-svg">
+          <div className='options-svg'>
             <Settings
               onClick={() =>
                 setProfileSettingsIsActive(!profileSettingsIsActive)
               }
             />
-            <div className="fw6 f4">Settings</div>
+            <div className='fw6 f4'>Settings</div>
           </div>
         </div>
       )}
@@ -138,9 +141,9 @@ function Profile({
 
 function mapDispatchToProps(dispatch) {
   return {
-    getFollowList: searchObject => dispatch(fetchFollowList(searchObject)),
-    follow: userId => dispatch(fetchFollowUser(userId)),
-    unfollow: id => dispatch(fetchUnfollowUser(id)),
+    getFollowList: (searchObject) => dispatch(fetchFollowList(searchObject)),
+    follow: (userId) => dispatch(fetchFollowUser(userId)),
+    unfollow: (id) => dispatch(fetchUnfollowUser(id)),
   };
 }
 
