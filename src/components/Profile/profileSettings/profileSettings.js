@@ -5,11 +5,12 @@ import { fetchPatchUser } from '../../../store/userSlice';
 function ProfileSettings({ patchUser }) {
   const [mainMenuisActive, setMainMenuIsActive] = useState(true);
   const [usernameChangerIsActive, setUsernameChangerIsActive] = useState(false);
-  const [username, setUserName] = useState('');
-  const [avatar, setAvatar] = useState('');
+  const [username, setUserName] = useState();
+  const [avatar, setAvatar] = useState();
 
   const handlePatchUser = async () => {
     await patchUser({ username, avatar });
+    window.location.reload();
   };
 
   return (
