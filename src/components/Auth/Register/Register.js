@@ -13,7 +13,7 @@ export default function Register() {
 
   const handleRegister = async () => {
     if (password !== confirmPassword) {
-      alert('Вибачте, але паролі сука не підходять!');
+      alert('Passwords mistmatch.');
       return;
     }
 
@@ -28,7 +28,7 @@ export default function Register() {
       localStorage.setItem('accessToken', data.accessToken);
       localStorage.setItem('refreshToken', data.refreshToken);
 
-      window.location.replace('/heap-client');
+      window.location.replace('/heap-client/#/posts');
     } catch (e) {
       setRegisterError(e.response.data.message);
     }

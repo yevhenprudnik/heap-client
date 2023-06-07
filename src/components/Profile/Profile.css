@@ -39,6 +39,11 @@
   font-weight: 600;
 }
 
+.username.long {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
 .options {
   display: flex;
   justify-content: space-around;
@@ -68,11 +73,71 @@
 .user-attributes {
   display: flex;
   justify-content: space-around;
-  width: 100%;
+  width: 75%;
   font-size: 1.25rem;
 }
 
-@media (max-width: 1200px) {
+.follow-btn {
+  width: 75%;
+  font-size: 1.5rem;
+  border-radius: 30px;
+  border: 3px solid green;
+  padding: 5px;
+  background-color: limegreen;
+  transition: 0.2s linear;
+}
+
+.follow-btn:hover {
+  background-color: lightgreen;
+}
+
+.follow-btn:active {
+  transform: scale(1.05);
+}
+
+.unfollow-btn {
+  width: 75%;
+  font-size: 1.5rem;
+  border-radius: 30px;
+  border: 3px solid maroon;
+  background-color: crimson;
+  padding: 5px;
+  transition: 0.2s linear;
+}
+
+.unfollow-btn:hover {
+  background-color: lightcoral;
+}
+
+.unfollow-btn:active {
+  transform: scale(1.05);
+}
+
+@media (max-width: 1800px) {
+  .username {
+    font-size: 2rem;
+  }
+  .username.long {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 1450px) {
+  .username.long {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 1300px) {
+  .username {
+    font-size: 1.3rem;
+  }
+  .username.long {
+    font-size: 0.55rem;
+  }
+}
+
+@media (max-width: 1300px) {
   .avatar {
     min-width: 200px;
     min-height: 200px;
@@ -83,9 +148,16 @@
     min-height: 200px;
   }
   .username {
-    font-size: 2.25rem;
+    font-size: 1.25rem;
+  }
+  .username.long {
+    font-size: 0.6rem;
   }
   .user-attributes {
     font-size: 0.9rem;
+  }
+
+  .follow-btn {
+    font-size: 1rem;
   }
 }

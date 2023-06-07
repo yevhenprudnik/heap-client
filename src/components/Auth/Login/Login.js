@@ -17,8 +17,7 @@ export default function Login() {
 
       localStorage.setItem('accessToken', data.accessToken);
       localStorage.setItem('refreshToken', data.refreshToken);
-
-      window.location.replace('/heap-client');
+      window.location.replace('/heap-client/#/posts');
     } catch (e) {
       setLoginError(e.response.data.message);
     }

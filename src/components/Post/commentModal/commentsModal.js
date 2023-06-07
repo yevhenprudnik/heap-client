@@ -84,7 +84,7 @@ function CommentsModal({
             onChange={(e) => setContent(e.target.value)}
           />
           <SendComment
-            className='comment-send'
+            className={content.trim().length > 0? 'comment-send': 'comment-send disabled'}
             title='Send comment'
             onClick={() => {
               handleCreateCommentPost();
