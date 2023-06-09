@@ -31,6 +31,8 @@ api.interceptors.response.use(
 
       return api.request(originalRequest);
     }
+
+    throw error;
   }
 );
 
